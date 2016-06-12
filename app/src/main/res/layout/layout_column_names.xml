@@ -7,15 +7,15 @@
     android:background="@drawable/widget_bg">
 
     <RadioGroup
-        android:id="@+id/rgRows"
+        android:id="@+id/rgColumns"
         android:layout_width="match_parent"
         android:padding="@dimen/small_space"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rbConstraint"
+            android:id="@+id/rbVariable"
             android:layout_width="match_parent"
-            android:text="@string/constraint_name"
+            android:text="@string/variable_name"
             android:checked="true"
             android:layout_height="wrap_content"/>
 
