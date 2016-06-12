@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_space"
+    android:background="@drawable/widget_bg"
+    android:padding="@dimen/small_space"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:id="@+id/txtRgTypeTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+        android:text="@string/txt_min_max_title"
+        android:layout_marginStart="@dimen/default_space"
+        android:layout_marginEnd="@dimen/default_space"
+        android:paddingTop="@dimen/default_space"
+        android:background="@drawable/title_widget_bg"
+        android:textColor="@color/colorAccent"
+        android:paddingBottom="@dimen/default_space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <RadioGroup
+        android:id="@+id/rgType"
+        android:layout_below="@id/txtRgTypeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radioMax"
+            android:text="@string/txt_max"
+            android:checked="true"
+            android:layout_marginTop="@dimen/small_space"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radioMin"
+            android:text="@string/txt_min"
+            android:layout_marginTop="@dimen/small_space"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+</RelativeLayout>

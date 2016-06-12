@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:maxWidth="@dimen/max_width"
+    android:layout_width="@dimen/min_width"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <include
+            layout="@layout/widget_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/widget_type" />
+                <include
+                    layout="@layout/widget_rows" />
+                <include
+                    layout="@layout/widget_cols" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <!-- TODO implement assign items -->
+                <include
+                    layout="@layout/widget_assign" />
+
+                <include
+                    layout="@layout/widget_action" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

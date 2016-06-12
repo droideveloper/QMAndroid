@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:core="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        core:theme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.Toolbar>
+
+    <org.fs.widget.NFScrollView
+        core:provideFocusOnChild="false"
+        core:hasOverScroll="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/widget_title"  />
+            <include
+                layout="@layout/widget_type"   />
+            <include
+                layout="@layout/widget_rows"   />
+            <include
+                layout="@layout/widget_cols"   />
+
+            <!-- TODO implement children such as templates defined in QM -->
+            <include
+                layout="@layout/widget_assign" />
+            <include
+                layout="@layout/widget_action" />
+
+        </LinearLayout>
+
+    </org.fs.widget.NFScrollView>
+
+</LinearLayout>

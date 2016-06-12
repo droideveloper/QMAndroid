@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#455A64</color>
+    <color name="colorPrimaryDark">#37474F</color>
+    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorBackground">#DEDEDE</color>
+
+    <color name="colorWidgetBackground">#F5F5F5</color>
+    <color name="colorWidgetStroke">#66666666</color>
+</resources>
