@@ -28,6 +28,11 @@
     <string name="number_name">1, 2, 3, 4, 5, &#8230;</string>
     <string name="month_name">January, February, March, &#8230;</string>
 
+    <string name="navigation_drawer_open">NavigationOpen</string>
+    <string name="navigation_drawer_close">NavigationClosed</string>
+
+    <string name="nv_home_title">Home</string>
+
     <string-array name="months">
         <item>January</item>
         <item>February</item>
