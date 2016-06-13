@@ -2,8 +2,13 @@ package org.fs.qm;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import org.fs.qm.views.CreateLinearProblemFragmentView;
 
 public class ScrollingActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +25,15 @@ public class ScrollingActivity extends AppCompatActivity {
 //
 //        PagerTitleStrip strip = new PagerTitleStrip(this);
 //        viewPager.addView(strip, params);
-//        setContentView(R.layout.layout_main_activity);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//
-//
-//        CreateLinearProblemFragmentView frag = new CreateLinearProblemFragmentView();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.vgContainer, frag).commit();
-//
+        setContentView(R.layout.layout_main_activity);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        CreateLinearProblemFragmentView frag = new CreateLinearProblemFragmentView();
+        getSupportFragmentManager().beginTransaction().replace(R.id.vgContainer, frag).commit();
+
 //
 //        Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {
@@ -56,4 +61,10 @@ public class ScrollingActivity extends AppCompatActivity {
 //            super.onBackPressed();
 //        }
 //    }
+
+
+    @Override
+    public void setTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
+    }
 }

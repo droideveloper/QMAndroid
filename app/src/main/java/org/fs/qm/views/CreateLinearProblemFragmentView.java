@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,12 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
         rowCountEditText.addTextChangedListener(presenter.provideRowWatcher());
         columnCountEditText.addTextChangedListener(presenter.provideColumnWatcher());
 
+        typeRadioGroup.setOnCheckedChangeListener(presenter.provideTypeChangeListener());
+
+        //add change listeners
+        rowCountSeekBar.setOnSeekBarChangeListener(presenter.provideRowChangeListener());
+        columnCountSeekBar.setOnSeekBarChangeListener(presenter.provideColumnChangeListener());
+
         //load adapter
         AssignStateAdapter adapter = new AssignStateAdapter(getContext(), getChildFragmentManager());
         namesViewPager.setAdapter(adapter);
@@ -88,9 +95,17 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
 
     @Override public void setTitle(String title) {
         titleEditText.setText(title);
+        titleEditText.setSelection(title.length());
     }
 
-//    @Override
+    @Override public void setParentTitle(String title) {
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+        if(isCallingSafe()) {
+            appCompatActivity.setTitle(title);
+        }
+    }
+
+    //    @Override
 //    public void setType(int type) {
 //
 //    }

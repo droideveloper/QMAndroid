@@ -23,6 +23,7 @@ public interface ICreateLinearProblemFragmentView extends IView {
 //    String      getColumnName();
 
     void        setTitle(String title);
+    void        setParentTitle(String title);
 //    void        setType(int type);
     void        setRowCount(int progress);
     void        setRowCount(String progress);

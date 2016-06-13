@@ -1,12 +1,17 @@
 package org.fs.qm.presenters;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
 import org.fs.common.AbstractPresenter;
 import org.fs.core.AbstractApplication;
 import org.fs.qm.R;
+import org.fs.qm.entities.Objective;
+import org.fs.qm.common.SimpleSeekBarChangeListener;
 import org.fs.qm.common.SimpleTextWatcher;
 import org.fs.qm.views.ICreateLinearProblemFragmentView;
 import org.fs.util.StringUtility;
@@ -15,20 +20,22 @@ import org.fs.util.StringUtility;
  * Created by Fatih on 13/06/16.
  * as org.fs.qm.presenters.CreateLinearProblemFragmentPresenter
  */
-public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICreateLinearProblemFragmentView> implements ICreateLinearProblemFragmentPresenter {
+public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICreateLinearProblemFragmentView> implements ICreateLinearProblemFragmentPresenter,
+                                                                                                                         RadioGroup.OnCheckedChangeListener {
 
     /**
      * TitleTextWatcher implementation
      */
     private SimpleTextWatcher titleTextWatcher = new SimpleTextWatcher() {
 
-        final String defaultTitle = getDefaultTitle();
-
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        @Override public void afterTextChanged(Editable s) {
+            final String defaultTitle = getDefaultTitle();
             final String str = s.toString();
-            if(str.startsWith(defaultTitle)) {
+            //if we only have default title we do not want to replace it
+            boolean isNotSame = !defaultTitle.equalsIgnoreCase(str);
+            if(str.startsWith(defaultTitle) && isNotSame) {
                 if(view.isAvailable()) {
-                    view.setTitle(str);
+                    view.setTitle(str.replace(defaultTitle, ""));
                 }
             } else {
                 if (str.length() == 0) {
@@ -36,6 +43,10 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
                         view.setTitle(defaultTitle);
                     }
                 }
+            }
+            //set title here well, might not want to but this is tracking change
+            if(view.isAvailable()) {
+                view.setParentTitle(str.startsWith(defaultTitle) ? str.replace(defaultTitle, "") : str);
             }
         }
     };
@@ -45,10 +56,9 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
      */
     private SimpleTextWatcher rowTextWatcher = new SimpleTextWatcher() {
 
-        final String defaultRowCountStr = getDefaultNumberOfRow();
-        final int    defaultRowCountInt = Integer.parseInt(defaultRowCountStr);
-
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        @Override public void afterTextChanged(Editable s) {
+            final String defaultRowCountStr = getDefaultNumberOfRow();
+            final int    defaultRowCountInt = Integer.parseInt(defaultRowCountStr);
             final String str = s.toString();
             if(StringUtility.isNullOrEmpty(str)) {
                 if(view.isAvailable()) {
@@ -58,7 +68,12 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
             } else {
                 final int progress = Integer.parseInt(str);
                 if(view.isAvailable()) {
-                    view.setRowCount(progress);
+                    if(progress >= defaultRowCountInt) {
+                        view.setRowCount(progress);
+                    } else {
+                        view.setRowCount(defaultRowCountInt);
+                        view.setRowCount(defaultRowCountStr);
+                    }
                 }
             }
         }
@@ -69,10 +84,9 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
      */
     private SimpleTextWatcher columnTextWatcher = new SimpleTextWatcher() {
 
-        final String defaultColumnCountStr = getDefaultNumberOfColumn();
-        final int    defaultColumnCountInt = Integer.parseInt(defaultColumnCountStr);
-
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        @Override public void afterTextChanged(Editable s) {
+            final String defaultColumnCountStr = getDefaultNumberOfColumn();
+            final int    defaultColumnCountInt = Integer.parseInt(defaultColumnCountStr);
             final String str = s.toString();
             if(StringUtility.isNullOrEmpty(str)) {
                 if(view.isAvailable()) {
@@ -82,11 +96,58 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
             } else {
                 final int progress = Integer.parseInt(str);
                 if(view.isAvailable()) {
-                    view.setColumnCount(progress);
+                    if(progress >= defaultColumnCountInt) {
+                        view.setColumnCount(progress);
+                    } else {
+                        view.setColumnCount(defaultColumnCountStr);
+                        view.setColumnCount(defaultColumnCountInt);
+                    }
                 }
             }
         }
     };
+
+    /**
+     * RowSeekBarChangeListener
+     */
+    private SimpleSeekBarChangeListener rowChangeListener = new SimpleSeekBarChangeListener() {
+
+        @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            final int defaultRowCountInt = Integer.parseInt(getDefaultNumberOfRow());
+            if(fromUser) {
+                if(view.isAvailable()) {
+                    if (progress >= defaultRowCountInt) {
+                        view.setRowCount(String.valueOf(progress));
+                    } else {
+                        view.setRowCount(String.valueOf(defaultRowCountInt));
+                        view.setRowCount(defaultRowCountInt);
+                    }
+                }
+            }
+        }
+    };
+
+    /**
+     * ColumnSeekBarChangeListener
+     */
+    private SimpleSeekBarChangeListener columnChangeListener = new SimpleSeekBarChangeListener() {
+
+        @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            final int defaultColumnCountInt = Integer.parseInt(getDefaultNumberOfColumn());
+            if(fromUser) {
+                if(view.isAvailable()) {
+                    if(progress >= defaultColumnCountInt) {
+                        view.setColumnCount(String.valueOf(progress));
+                    } else {
+                        view.setColumnCount(String.valueOf(progress));
+                        view.setColumnCount(progress);
+                    }
+                }
+            }
+        }
+    };
+
+    private Objective selectedType;
 
     public CreateLinearProblemFragmentPresenter(ICreateLinearProblemFragmentView view) {
         super(view);
@@ -114,20 +175,27 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
         return columnTextWatcher;
     }
 
-    @Override
-    public SeekBar.OnSeekBarChangeListener provideRowChangeListener() {
-        return null;
+    @Override public SeekBar.OnSeekBarChangeListener provideRowChangeListener() {
+        return rowChangeListener;
     }
 
-    @Override
-    public SeekBar.OnSeekBarChangeListener provideColumnChangeListener() {
-        return null;
+    @Override public SeekBar.OnSeekBarChangeListener provideColumnChangeListener() {
+        return columnChangeListener;
     }
 
-    @Override
-    public void onCreate() {
+    @Override public RadioGroup.OnCheckedChangeListener provideTypeChangeListener() {
+        return this;
+    }
+
+    @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
+        selectedType = Objective.from(checkedId);
+        log(Log.ERROR, String.valueOf(selectedType));
+    }
+
+    @Override public void onCreate() {
         if(view.isAvailable()) {
             view.setUpViews();
+            selectedType = Objective.from(view.getType());
         }
     }
 
@@ -144,6 +212,10 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
     @Override
     public void onDestroy() {
 
+    }
+
+    @Override public Objective getSelectedType() {
+        return selectedType;
     }
 
     @Override public String getDefaultTitle() {
@@ -165,4 +237,5 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
     @Override protected boolean isLogEnabled() {
         return AbstractApplication.isDebug();
     }
+
 }
