@@ -31,6 +31,10 @@ public interface IMainActivityView extends IView {
     ApplicationComponent getApplicationComponent();
     ActivityComponent    getActivityComponent();
     QMAndroidApplication getQMAndroidApplication();
+
+
+    boolean              shouldDrawerToggleSelected(MenuItem item);
+    boolean              shouldActivitySelected(MenuItem item);
     MenuItem             findMenuItem(int id);
     boolean              isTablet();
     boolean              hasDrawerOpen();

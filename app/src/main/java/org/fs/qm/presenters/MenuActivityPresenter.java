@@ -50,6 +50,13 @@ public class MenuActivityPresenter extends AbstractPresenter<IMainActivityView> 
         output.putInt(KEY_SELECTED_NAVIGATION_MENU, selectedNavigationMenu);
     }
 
+    @Override public boolean optionsItemSelected(MenuItem item) {
+        if(view.shouldDrawerToggleSelected(item)) {
+            return true;
+        }
+        return view.shouldActivitySelected(item);
+    }
+
     @Override public boolean hasBackPress() {
         boolean hasDrawerOpen = view.hasDrawerOpen();
         if(hasDrawerOpen) {

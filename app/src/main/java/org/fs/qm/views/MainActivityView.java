@@ -67,12 +67,16 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
         }
     }
 
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-        boolean hasActionToolBar = drawerToggle != null && drawerToggle.onOptionsItemSelected(item);
-        if(hasActionToolBar) {
-            return hasActionToolBar;
-        }
+    @Override public boolean shouldActivitySelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override public boolean shouldDrawerToggleSelected(MenuItem item) {
+        return drawerToggle != null && drawerToggle.onOptionsItemSelected(item);
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        return presenter.optionsItemSelected(item);
     }
 
     @Override protected void onStart() {

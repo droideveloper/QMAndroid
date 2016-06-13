@@ -17,6 +17,7 @@ public interface IMainActivityPresenter extends IPresenter {
 
     boolean hasBackPress();
     void    navigate(MenuItem navigation);
+    boolean optionsItemSelected(MenuItem item);
 
     NavigationView.OnNavigationItemSelectedListener provideNavigationListener();
 }
