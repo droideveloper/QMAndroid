@@ -1,6 +1,7 @@
 package org.fs.qm.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ public interface IMainActivityView extends IView {
 
     void commitWithAnim(Fragment fragment);
     void commitWithoutAnim(Fragment fragment);
+    void startActivity(Intent intent);
 
     FragmentManager      getSupportFragmentManager();
     ApplicationComponent getApplicationComponent();

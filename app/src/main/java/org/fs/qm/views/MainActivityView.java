@@ -1,6 +1,7 @@
 package org.fs.qm.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -112,8 +113,14 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
                 actionBar.setDisplayShowTitleEnabled(true);
             }
             drawerLayout.addDrawerListener(drawerToggle);
+            drawerLayout.addDrawerListener(presenter.provideSimpleDrawerListener());//we just used it for text
         }
         navigationView.setNavigationItemSelectedListener(presenter.provideNavigationListener());
+    }
+
+    @Override public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.translate_in, R.anim.scale_out);
     }
 
     @Override public void setTitle(String title) {

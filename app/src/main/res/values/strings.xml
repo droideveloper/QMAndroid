@@ -31,6 +31,9 @@
     <string name="navigation_drawer_open">NavigationOpen</string>
     <string name="navigation_drawer_close">NavigationClosed</string>
 
+    <!-- used for the title will be used in first stage -->
+    <string name="nv_drawer_title">QM for Android</string>
+
     <string name="nv_home_title">Home</string>
 
     <string-array name="months">

@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 
 import org.fs.common.IPresenter;
+import org.fs.qm.common.SimpleDrawerListener;
 
 /**
  * Created by Fatih on 13/06/16.
@@ -19,5 +20,6 @@ public interface IMainActivityPresenter extends IPresenter {
     void    navigate(MenuItem navigation);
     boolean optionsItemSelected(MenuItem item);
 
+    SimpleDrawerListener                            provideSimpleDrawerListener();
     NavigationView.OnNavigationItemSelectedListener provideNavigationListener();
 }
