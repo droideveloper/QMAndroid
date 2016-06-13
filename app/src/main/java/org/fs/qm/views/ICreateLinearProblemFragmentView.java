@@ -1,6 +1,7 @@
 package org.fs.qm.views;
 
 import android.content.Context;
+import android.view.View;
 
 import org.fs.common.IView;
 import org.fs.qm.components.ActivityComponent;
@@ -28,7 +29,7 @@ public interface ICreateLinearProblemFragmentView extends IView {
     void        setColumnCount(int progress);
     void        setColumnCount(String progress);
 
-
+    View                    onBindView(View view);
     ApplicationComponent    getApplicationComponent();
     ActivityComponent       getActivityComponent();
     boolean                 isAvailable();

@@ -31,8 +31,12 @@ public class RowFragmentView extends AbstractFragment<IRowFragmentPresenter> imp
     private MonthsAdapter adapter;
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_row_names, container, false);
-        rgRows = ViewUtility.castAsField(view);
+        return onBindView(inflater.inflate(R.layout.layout_row_names, container, false));
+    }
+
+    //read view
+    @Override public View onBindView(View view) {
+        rgRows  = ViewUtility.castAsField(view);
         spMonth = ViewUtility.findViewById(view, R.id.spMonth);
         return view;
     }

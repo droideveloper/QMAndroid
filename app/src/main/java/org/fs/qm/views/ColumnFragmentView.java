@@ -31,7 +31,10 @@ public class ColumnFragmentView extends AbstractFragment<IColumnFragmentPresente
     private MonthsAdapter adapter;
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_column_names, container, false);
+        return onBindView(inflater.inflate(R.layout.layout_column_names, container, false));
+    }
+
+    @Override public View onBindView(View view) {
         rgColumns = ViewUtility.castAsField(view);
         spMonth   = ViewUtility.findViewById(view, R.id.spMonth);
         return view;

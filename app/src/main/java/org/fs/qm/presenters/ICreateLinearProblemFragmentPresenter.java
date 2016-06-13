@@ -15,6 +15,10 @@ public interface ICreateLinearProblemFragmentPresenter extends IPresenter {
     void restoreState(Bundle input);
     void storeState(Bundle output);
 
+    String      getDefaultTitle();
+    String      getDefaultNumberOfRow();
+    String      getDefaultNumberOfColumn();
+
     TextWatcher provideTitleWatcher();
     TextWatcher provideRowWatcher();
     TextWatcher provideColumnWatcher();

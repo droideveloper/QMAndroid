@@ -1,6 +1,7 @@
 package org.fs.qm.views;
 
 import android.content.Context;
+import android.view.View;
 
 import org.fs.common.IView;
 
@@ -18,6 +19,7 @@ public interface IRowFragmentView extends IView {
     void disableMonth();
     void enableMonth();
 
+    View    onBindView(View view);
     boolean isAvailable();
     Context getContext();
 }

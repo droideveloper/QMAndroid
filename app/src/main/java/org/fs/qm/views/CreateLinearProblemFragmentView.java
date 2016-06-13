@@ -38,8 +38,10 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
 
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_create_lp, container, false);
-        //readViews
+        return onBindView(inflater.inflate(R.layout.layout_create_lp, container, false));
+    }
+
+    @Override public View onBindView(View view) {
         titleEditText       = ViewUtility.findViewById(view, R.id.edtTitle);
         typeRadioGroup      = ViewUtility.findViewById(view, R.id.rgType);
         rowCountEditText    = ViewUtility.findViewById(view, R.id.edtNumberOfRows);
@@ -73,6 +75,12 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
 
     @Override
     public void setUpViews() {
+        //add watchers
+        titleEditText.addTextChangedListener(presenter.provideTitleWatcher());
+        rowCountEditText.addTextChangedListener(presenter.provideRowWatcher());
+        columnCountEditText.addTextChangedListener(presenter.provideColumnWatcher());
+
+        //load adapter
         AssignStateAdapter adapter = new AssignStateAdapter(getContext(), getChildFragmentManager());
         namesViewPager.setAdapter(adapter);
         namesViewPager.setPageTransformer(false, new ReverseDepthPageTransformer());//this is nice transformer
