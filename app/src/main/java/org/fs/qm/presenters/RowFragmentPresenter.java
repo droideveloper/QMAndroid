@@ -34,13 +34,11 @@ public class RowFragmentPresenter extends AbstractPresenter<IRowFragmentView> im
         //no op
     }
 
-    @Override
-    public RadioGroup.OnCheckedChangeListener provideCheckedChangeListener() {
+    @Override public RadioGroup.OnCheckedChangeListener provideCheckedChangeListener() {
         return this;
     }
 
-    @Override
-    public Spinner.OnItemSelectedListener provideItemSelectedListener() {
+    @Override public Spinner.OnItemSelectedListener provideItemSelectedListener() {
         return this;
     }
 

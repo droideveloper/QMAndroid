@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RadioGroup
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:layout_margin="@dimen/default_space"
-    android:background="@drawable/widget_bg">
+    android:id="@+id/rgColumns"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@color/colorWidgetBackground"
+    android:layout_width="match_parent"
+    android:padding="@dimen/small_space"
+    android:layout_height="wrap_content">
 
-    <RadioGroup
-        android:id="@+id/rgColumns"
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbVariable"
         android:layout_width="match_parent"
-        android:padding="@dimen/small_space"
-        android:layout_height="wrap_content">
+        android:text="@string/variable_name"
+        android:checked="true"
+        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rbVariable"
-            android:layout_width="match_parent"
-            android:text="@string/variable_name"
-            android:checked="true"
-            android:layout_height="wrap_content"/>
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbLowerLetter"
+        android:text="@string/lower_case_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rbLowerLetter"
-            android:text="@string/lower_case_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbUpperLetter"
+        android:text="@string/upper_case_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rbUpperLetter"
-            android:text="@string/upper_case_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbNumber"
+        android:text="@string/number_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rbNumber"
-            android:text="@string/number_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbMonth"
+        android:layout_width="match_parent"
+        android:text="@string/month_name"
+        android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spMonth"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
 
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/rbMonth"
-                android:layout_width="0dp"
-                android:text="@string/month_name"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spMonth"
-                android:gravity="center"
-                android:spinnerMode="dropdown"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content" />
-
-        </LinearLayout>
-    </RadioGroup>
-</ScrollView>
+</RadioGroup>

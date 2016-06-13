@@ -15,11 +15,9 @@ import org.fs.qm.R;
 import org.fs.qm.adapters.MonthsAdapter;
 import org.fs.qm.presenters.ColumnFragmentPresenter;
 import org.fs.qm.presenters.IColumnFragmentPresenter;
+import org.fs.util.ViewUtility;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Fatih on 12/06/16.
@@ -27,23 +25,29 @@ import butterknife.ButterKnife;
  */
 public class ColumnFragmentView extends AbstractFragment<IColumnFragmentPresenter> implements IColumnFragmentView {
 
-    @BindView(value = R.id.rgColumns)   RadioGroup rgColumns;
-    @BindView(value = R.id.spMonth)     Spinner    spMonth;
+    private   RadioGroup rgColumns;
+    private   Spinner    spMonth;
+
     private MonthsAdapter adapter;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_column_names, container, false);
-        ButterKnife.bind(view);
+        rgColumns = ViewUtility.castAsField(view);
+        spMonth   = ViewUtility.findViewById(view, R.id.spMonth);
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter.restoreState(savedInstanceState != null ? savedInstanceState : getArguments());
         presenter.onCreate();
+
+//        FragmentTransaction trans = getChildFragmentManager().beginTransaction();
+//        trans.setCustomAnimations(R.anim.translate_in,      //enter
+//                                  R.anim.scale_out,         //exit
+//                                  R.anim.scale_in,          //popEnter
+//                                  R.anim.translate_out);    //popExit
+//        trans.commit();
     }
 
     @Override public void onSaveInstanceState(Bundle outState) {

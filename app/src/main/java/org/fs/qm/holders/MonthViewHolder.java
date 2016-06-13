@@ -6,9 +6,7 @@ import android.widget.TextView;
 
 import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractViewHolder;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import org.fs.util.ViewUtility;
 
 /**
  * Created by Fatih on 12/06/16.
@@ -16,11 +14,11 @@ import butterknife.ButterKnife;
  */
 public class MonthViewHolder extends AbstractViewHolder<String> {
 
-    @BindView(value = android.R.id.text1) TextView textView;
+    private TextView textView;
 
     public MonthViewHolder(View view) {
         super(view);
-        ButterKnife.bind(view);//we use butterKnife as injector
+        textView = ViewUtility.castAsField(view);
     }
 
     public void setData(@NonNull  String data) {

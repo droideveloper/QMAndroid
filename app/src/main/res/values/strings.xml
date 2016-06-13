@@ -21,7 +21,7 @@
     <string name="column_fragment_title">Column Name</string>
 
     <string name="constraint_name">Constraint1, Constraint2, Constraint3, &#8230;</string>
-    <string name="variable_name">X1, X2, X3, X4, &#8230;</string>
+    <string name="variable_name">x1, x2, x3, x4, &#8230;</string>
 
     <string name="lower_case_name">a, b, c, d, e, &#8230;</string>
     <string name="upper_case_name">A, B, C, D, E, &#8230;</string>

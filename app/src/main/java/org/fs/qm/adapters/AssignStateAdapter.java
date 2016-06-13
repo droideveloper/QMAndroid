@@ -5,23 +5,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import org.fs.core.AbstractApplication;
-import org.fs.core.AbstractStatePagerAdapter;
+import org.fs.core.AbstractPagerAdapter;
 import org.fs.qm.R;
 import org.fs.qm.views.ColumnFragmentView;
 import org.fs.qm.views.RowFragmentView;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by Fatih on 12/06/16.
  * as org.fs.qm.adapters.AssignStateAdapter
  */
-public class AssignStateAdapter extends AbstractStatePagerAdapter<Integer> {
+public class AssignStateAdapter extends AbstractPagerAdapter<Integer> {
 
     private String[] titleText;
 
-    public AssignStateAdapter(Context context, FragmentManager fragmentManager, List<Integer> dataSet) {
-        super(fragmentManager, dataSet);
+    public AssignStateAdapter(Context context, FragmentManager fragmentManager) {
+        super(fragmentManager, Arrays.asList(0, 1));//we only have 2 children
         //reading titles from strings.xml
         titleText = new String[dataSet.size()];
         titleText[0] = context.getResources().getString(R.string.row_fragment_title);

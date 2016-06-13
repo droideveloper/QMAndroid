@@ -3,6 +3,7 @@ package org.fs.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import org.fs.core.R;
@@ -50,5 +51,10 @@ public class SqFrameLayout extends FrameLayout {
             sq = Math.min(width, height);
         }
         setMeasuredDimension(sq, sq);
+        //must be measured ?
+        for(int i = 0; i < getChildCount(); i++) {
+            View v = getChildAt(i);
+            v.measure(widthMeasureSpec, heightMeasureSpec);
+        }
     }
 }

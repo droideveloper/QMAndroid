@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class AbstractPagerAdapter<D> extends FragmentPagerAdapter {
 
-    private List<D> dataSet = null;
+    protected List<D> dataSet = null;
 
     public AbstractPagerAdapter(FragmentManager fragmentManager, List<D> dataSet) {
         super(fragmentManager);

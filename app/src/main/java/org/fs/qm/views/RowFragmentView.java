@@ -15,11 +15,9 @@ import org.fs.qm.R;
 import org.fs.qm.adapters.MonthsAdapter;
 import org.fs.qm.presenters.IRowFragmentPresenter;
 import org.fs.qm.presenters.RowFragmentPresenter;
+import org.fs.util.ViewUtility;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Fatih on 12/06/16.
@@ -27,14 +25,15 @@ import butterknife.ButterKnife;
  */
 public class RowFragmentView extends AbstractFragment<IRowFragmentPresenter> implements IRowFragmentView {
 
-    @BindView(value = R.id.rgRows) RadioGroup           rgRows;
-    @BindView(value = R.id.spMonth) Spinner             spMonth;
+    private RadioGroup  rgRows;
+    private Spinner     spMonth;
 
     private MonthsAdapter adapter;
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_row_names, container, false);
-        ButterKnife.bind(view);
+        rgRows = ViewUtility.castAsField(view);
+        spMonth = ViewUtility.findViewById(view, R.id.spMonth);
         return view;
     }
 
@@ -42,6 +41,11 @@ public class RowFragmentView extends AbstractFragment<IRowFragmentPresenter> imp
         super.onActivityCreated(savedInstanceState);
         presenter.restoreState(savedInstanceState != null ? savedInstanceState : getArguments());
         presenter.onCreate();
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        presenter.storeState(outState);
     }
 
     @Override public void onStart() {

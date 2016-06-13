@@ -14,7 +14,7 @@
         android:layout_marginStart="@dimen/default_space"
         android:layout_marginEnd="@dimen/default_space"
         android:paddingTop="@dimen/default_space"
-        android:background="@drawable/title_widget_bg"
+        android:background="@drawable/widget_title_bg"
         android:paddingBottom="@dimen/default_space"
         android:textColor="?attr/colorAccent"
         android:layout_width="match_parent"

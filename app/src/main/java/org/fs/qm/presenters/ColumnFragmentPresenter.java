@@ -35,13 +35,11 @@ public class ColumnFragmentPresenter extends AbstractPresenter<IColumnFragmentVi
         //no op
     }
 
-    @Override
-    public RadioGroup.OnCheckedChangeListener provideCheckedChangeListener() {
+    @Override public RadioGroup.OnCheckedChangeListener provideCheckedChangeListener() {
         return this;
     }
 
-    @Override
-    public Spinner.OnItemSelectedListener provideItemSelectedListener() {
+    @Override public Spinner.OnItemSelectedListener provideItemSelectedListener() {
         return this;
     }
 
@@ -49,8 +47,7 @@ public class ColumnFragmentPresenter extends AbstractPresenter<IColumnFragmentVi
         return view.getContext().getResources().getStringArray(resId);
     }
 
-    @Override
-    public void onCreate() {
+    @Override public void onCreate() {
         if(view.isAvailable()) {
             view.onSetupViews();
             view.disableMonth();
@@ -79,8 +76,7 @@ public class ColumnFragmentPresenter extends AbstractPresenter<IColumnFragmentVi
         return AbstractApplication.isDebug();
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
+    @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
         if(checkedId == R.id.rbMonth) {
             view.enableMonth();
         } else {
@@ -88,13 +84,11 @@ public class ColumnFragmentPresenter extends AbstractPresenter<IColumnFragmentVi
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //todo implement
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    @Override public void onNothingSelected(AdapterView<?> parent) {
         //todo needs implementation?
     }
 }
