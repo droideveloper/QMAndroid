@@ -1,7 +1,10 @@
 package org.fs.qm.common;
 
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by Fatih on 13/06/16.
@@ -10,11 +13,29 @@ import android.view.View;
 public class ReverseDepthPageTransformer implements ViewPager.PageTransformer {
 
     private final static float MIN_SCALE = .80f;
+    private final WeakReference<ViewPager>  parent;
 
-    //TODO since there is some weird movement in the end because of some weird action yet reason seems to be padding in viewPager
+    public ReverseDepthPageTransformer(ViewPager viewPager) {
+        parent = viewPager != null ? new WeakReference<>(viewPager) : null;
+    }
+
+    //TODO padding in pager has weird movement since it not handle it in the width section
 
     @Override public void transformPage(View view, float position) {
-        int width   = view.getWidth();
+        int except;
+        ViewPager parent = this.parent.get();
+        //will this solve my problem
+        if(parent != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                except = parent.getPaddingEnd() + parent.getPaddingStart();
+            } else {
+                except = parent.getPaddingLeft() + parent.getPaddingRight();
+            }
+        } else {
+            except = 0;
+        }
+
+        int width   = view.getWidth() - except;
 
         if(position < -1) { //[-Infinity, -1)
             view.setAlpha(0.0f);

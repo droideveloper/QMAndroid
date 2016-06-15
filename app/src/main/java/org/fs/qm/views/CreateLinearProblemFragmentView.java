@@ -74,8 +74,7 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
         super.onDestroy();
     }
 
-    @Override
-    public void setUpViews() {
+    @Override public void setUpViews() {
         //add watchers
         titleEditText.addTextChangedListener(presenter.provideTitleWatcher());
         rowCountEditText.addTextChangedListener(presenter.provideRowWatcher());
@@ -90,7 +89,7 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
         //load adapter
         AssignStateAdapter adapter = new AssignStateAdapter(getContext(), getChildFragmentManager());
         namesViewPager.setAdapter(adapter);
-        namesViewPager.setPageTransformer(false, new ReverseDepthPageTransformer());//this is nice transformer
+        namesViewPager.setPageTransformer(false, new ReverseDepthPageTransformer(namesViewPager));//this is nice transformer
     }
 
     @Override public void setTitle(String title) {

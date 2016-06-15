@@ -123,6 +123,11 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
         overridePendingTransition(R.anim.translate_in, R.anim.scale_out);
     }
 
+    @Override public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.scale_in, R.anim.scale_out);
+    }
+
     @Override public void setTitle(String title) {
         toolBar.setTitle(title);
     }
@@ -172,7 +177,7 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
     }
 
     @Override public void closeMenu() {
-        if(!isTablet()) {
+        if(!isTablet()) {//we handle table concept in here
             if (drawerLayout != null) {
                 drawerLayout.closeDrawer(GravityCompat.START);
             }

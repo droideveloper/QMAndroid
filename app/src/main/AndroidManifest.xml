@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="org.fs.qm"
           xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!-- application class is set -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +10,7 @@
         android:name=".QMAndroidApplication"
         android:theme="@style/AppTheme">
 
+<!-- launcher activity set-->
         <activity android:name=".views.MainActivityView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

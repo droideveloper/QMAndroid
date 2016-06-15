@@ -20,14 +20,17 @@ public interface IMainActivityView extends IView {
 
     void setUpViews();
     void onBindView();
+    //handset
     void closeMenu();
     void showMenu();
     void setNavigationSelected(int id);
     void setTitle(String title);
-
+    //tablet
     void commitWithAnim(Fragment fragment);
     void commitWithoutAnim(Fragment fragment);
+    //handset
     void startActivity(Intent intent);
+    void finish();
 
     FragmentManager      getSupportFragmentManager();
     ApplicationComponent getApplicationComponent();

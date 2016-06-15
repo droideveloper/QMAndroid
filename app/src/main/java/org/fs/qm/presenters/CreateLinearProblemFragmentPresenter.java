@@ -23,6 +23,8 @@ import org.fs.util.StringUtility;
 public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICreateLinearProblemFragmentView> implements ICreateLinearProblemFragmentPresenter,
                                                                                                                          RadioGroup.OnCheckedChangeListener {
 
+    public static final String KEY_OBJECTIVE_TYPE = "objective.type";
+
     /**
      * TitleTextWatcher implementation
      */
@@ -155,12 +157,19 @@ public class CreateLinearProblemFragmentPresenter extends AbstractPresenter<ICre
 
     @Override
     public void restoreState(Bundle input) {
-
+        if(input != null) {
+            String valueEnum = input.getString(KEY_OBJECTIVE_TYPE);
+            if(valueEnum != null) {
+                selectedType = Objective.valueOf(valueEnum);
+            }
+        }
     }
 
     @Override
     public void storeState(Bundle output) {
-
+        if(selectedType != null) {
+            output.putString(KEY_OBJECTIVE_TYPE, String.valueOf(selectedType));
+        }
     }
 
     @Override public TextWatcher provideTitleWatcher() {
