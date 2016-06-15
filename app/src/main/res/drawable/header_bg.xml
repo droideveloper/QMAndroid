@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- trick is giving gravity -->
+    <item android:gravity="fill_horizontal|fill_vertical">
+        <shape>
+            <solid android:color="@color/colorNavigationHeaderBackground" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_history_white_24dp" android:gravity="end|top" />
+</layer-list>

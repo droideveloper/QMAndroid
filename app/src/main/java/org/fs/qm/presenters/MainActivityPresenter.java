@@ -18,7 +18,7 @@ import org.fs.qm.views.IMainActivityView;
  * Created by Fatih on 13/06/16.
  * as org.fs.qm.presenters.MenuActivityPresenter
  */
-public class MenuActivityPresenter extends AbstractPresenter<IMainActivityView> implements IMainActivityPresenter,
+public class MainActivityPresenter extends AbstractPresenter<IMainActivityView> implements IMainActivityPresenter,
                                                                                            NavigationView.OnNavigationItemSelectedListener {
 
     private static final String KEY_SELECTED_NAVIGATION_MENU = "navigation.selected.menu";
@@ -54,7 +54,7 @@ public class MenuActivityPresenter extends AbstractPresenter<IMainActivityView> 
     private String  selectedNavigationTitle;
     private String  defaultNavigationTitle;
 
-    public MenuActivityPresenter(IMainActivityView view) {
+    public MainActivityPresenter(IMainActivityView view) {
         super(view);
     }
 
@@ -117,7 +117,7 @@ public class MenuActivityPresenter extends AbstractPresenter<IMainActivityView> 
         }
         //load default selected
         if(selectedNavigationMenu == 0) {
-            selectedNavigationMenu = R.id.nvHome;
+            view.setNavigationSelected(R.id.nvHome);
         }
     }
 
@@ -144,7 +144,7 @@ public class MenuActivityPresenter extends AbstractPresenter<IMainActivityView> 
     }
 
     @Override protected String getClassTag() {
-        return MenuActivityPresenter.class.getSimpleName();
+        return MainActivityPresenter.class.getSimpleName();
     }
 
     @Override protected boolean isLogEnabled() {

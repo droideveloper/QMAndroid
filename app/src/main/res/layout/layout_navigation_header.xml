@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:layout_height="150dp" />
+    android:background="@drawable/header_bg"
+    android:layout_height="@dimen/navigation_header_height" />
 

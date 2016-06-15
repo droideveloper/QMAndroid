@@ -3,6 +3,7 @@
     <bool name="isTablet">true</bool>
     <bool name="forHandset">false</bool>
 
+    <dimen name="navigation_header_height">250dp</dimen>
     <dimen name="max_width">640dp</dimen>
     <dimen name="min_width">640dp</dimen>
 </resources>

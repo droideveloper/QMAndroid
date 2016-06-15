@@ -2,9 +2,12 @@
 <resources>
     <color name="colorPrimary">#455A64</color>
     <color name="colorPrimaryDark">#37474F</color>
-    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorAccent">#4A78C9</color>
     <color name="colorBackground">#DEDEDE</color>
 
+    <color name="colorNavigationBackground">#DEDEDE</color>
+    <color name="colorNavigationHeaderBackground">#44888888</color>
     <color name="colorWidgetBackground">#F5F5F5</color>
     <color name="colorWidgetStroke">#66666666</color>
+    <color name="colorNavigationDefaultTint">#888888</color>
 </resources>

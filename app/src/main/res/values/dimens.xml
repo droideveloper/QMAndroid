@@ -4,6 +4,7 @@
     <bool name="isTablet">false</bool>
     <bool name="forHandset">true</bool>
 
+    <dimen name="navigation_header_height">150dp</dimen>
     <dimen name="default_space">5dp</dimen>
     <dimen name="small_space">2dp</dimen>
     <dimen name="large_space">10dp</dimen>

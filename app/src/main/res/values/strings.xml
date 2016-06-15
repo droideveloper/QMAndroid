@@ -35,6 +35,7 @@
     <string name="nv_drawer_title">QM for Android</string>
 
     <string name="nv_home_title">Home</string>
+    <string name="nv_history_title">History</string>
 
     <string-array name="months">
         <item>January</item>

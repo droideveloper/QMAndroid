@@ -23,7 +23,7 @@ import org.fs.qm.R;
 import org.fs.qm.components.ActivityComponent;
 import org.fs.qm.components.ApplicationComponent;
 import org.fs.qm.presenters.IMainActivityPresenter;
-import org.fs.qm.presenters.MenuActivityPresenter;
+import org.fs.qm.presenters.MainActivityPresenter;
 import org.fs.util.ViewUtility;
 
 /**
@@ -98,14 +98,14 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
     @Override public void onBindView() {
         toolBar         = ViewUtility.findViewById(this, R.id.toolbar);
         navigationView  = ViewUtility.findViewById(this, R.id.nvMenu);
-        if (!isTablet()) {
+        if (!isTablet()) {//non tablet ui
             drawerLayout = ViewUtility.findViewById(this, R.id.vgDrawer);
             drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         }
     }
 
     @Override public void setUpViews() {
-        if(!isTablet()) {
+        if(!isTablet()) {//non tablet configuration
             setSupportActionBar(toolBar);
             ActionBar actionBar = getSupportActionBar();
             if(actionBar != null) {
@@ -144,14 +144,14 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
         trans.replace(R.id.vgContainer, fragment);
         trans.setCustomAnimations(R.anim.translate_in, R.anim.scale_out,
                                   R.anim.scale_in, R.anim.translate_out);
-        trans.addToBackStack(String.valueOf(fragment.hashCode()));
+        //trans.addToBackStack(String.valueOf(fragment.hashCode())); if we want to navigate with all the way around only with fragments then it's ok but if we don't ?
         trans.commit();
     }
 
     @Override public void commitWithoutAnim(Fragment fragment) {
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.vgContainer, fragment);
-        trans.addToBackStack(String.valueOf(fragment.hashCode()));
+        //trans.addToBackStack(String.valueOf(fragment.hashCode())); if we want to navigate with all the way around only with fragments then it's ok but if we don't ?
         trans.commit();
     }
 
@@ -172,14 +172,18 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
     }
 
     @Override public void closeMenu() {
-        if(drawerLayout != null) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+        if(!isTablet()) {
+            if (drawerLayout != null) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
         }
     }
 
     @Override public void showMenu() {
-        if(drawerLayout != null) {
-            drawerLayout.openDrawer(GravityCompat.END);
+        if(!isTablet()) {
+            if (drawerLayout != null) {
+                drawerLayout.openDrawer(GravityCompat.END);
+            }
         }
     }
 
@@ -207,7 +211,7 @@ public class MainActivityView extends AbstractActivity<IMainActivityPresenter> i
     }
 
     @Override protected IMainActivityPresenter presenter() {
-        return new MenuActivityPresenter(this);
+        return new MainActivityPresenter(this);
     }
 
     @Override protected String getClassTag() {

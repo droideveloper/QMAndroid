@@ -7,5 +7,10 @@
             android:id="@+id/nvHome"
             android:title="@string/nv_home_title"
             android:icon="@drawable/ic_account_balance_white_24dp" />
+
+        <item
+            android:id="@+id/nvHistory"
+            android:title="@string/nv_history_title"
+            android:icon="@drawable/ic_history_white_24dp" />
     </group>
 </menu>
