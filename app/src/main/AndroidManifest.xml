@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="org.fs.qm"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="org.fs.qm"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <!-- application class is set -->
     <application
         android:allowBackup="true"
@@ -11,10 +13,14 @@
         android:theme="@style/AppTheme">
 
 <!-- launcher activity set-->
-        <activity android:name=".views.MainActivityView">
+        <activity
+            android:name=".views.CreateLinearProblemActivityView"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 

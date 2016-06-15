@@ -13,6 +13,7 @@
 
         <android.support.design.widget.CollapsingToolbarLayout
             xmlns:collapse="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/vgToolBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             collapse:theme="@style/ThemeOverlay.Light"

@@ -100,7 +100,17 @@ public class CreateLinearProblemFragmentView extends AbstractFragment<ICreateLin
     @Override public void setParentTitle(String title) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if(isCallingSafe()) {
-            appCompatActivity.setTitle(title);
+            if(appCompatActivity instanceof MainActivityView) {
+                IMainActivityView parent = (IMainActivityView) appCompatActivity;
+                parent.setTitle(title);
+            }
+            else if(appCompatActivity instanceof CreateLinearProblemActivityView) {
+                ICreateLinearProblemActivityView parent = (CreateLinearProblemActivityView) appCompatActivity;
+                parent.setTitle(title);
+            } else {
+                log("setTitle: " + title + " is ignored!");
+            }
+
         }
     }
 

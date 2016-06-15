@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 
@@ -24,6 +25,7 @@ import org.fs.util.ViewUtility;
 public class CreateLinearProblemActivityView extends AbstractActivity<ICreateLinearProblemActivityPresenter> implements ICreateLinearProblemActivityView {
 
     private Toolbar                          toolBar;
+    private CollapsingToolbarLayout          toolBarLayout;
     private ICreateLinearProblemFragmentView fragCreateLinearProblem;
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class CreateLinearProblemActivityView extends AbstractActivity<ICreateLin
     }
 
     @Override public void onBindView() {
+        toolBarLayout  = ViewUtility.findViewById(this, R.id.vgToolBar);
         toolBar = ViewUtility.findViewById(this, R.id.toolbar);
         setSupportActionBar(toolBar);
         toolBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -71,6 +74,9 @@ public class CreateLinearProblemActivityView extends AbstractActivity<ICreateLin
     @Override public void setTitle(String titleStr) {
         if(toolBar != null) {
             toolBar.setTitle(titleStr);
+        }
+        if(toolBarLayout != null) {
+            toolBarLayout.setTitle(titleStr);
         }
     }
 

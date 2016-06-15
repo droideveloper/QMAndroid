@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.fs.qm.widget.FocuslessNestedScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:nested="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -31,4 +30,4 @@
 
     </LinearLayout>
 
-</org.fs.qm.widget.FocuslessNestedScrollView>
+</android.support.v4.widget.NestedScrollView>
