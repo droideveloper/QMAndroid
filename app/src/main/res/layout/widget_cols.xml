@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/widget_bg"
+    android:padding="@dimen/small_space"
+    android:layout_margin="@dimen/default_space">
+
+    <TextView
+        android:id="@+id/txtColsTypeTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+        android:text="@string/txt_number_of_cols_title"
+        android:layout_marginStart="@dimen/default_space"
+        android:layout_marginEnd="@dimen/default_space"
+        android:paddingTop="@dimen/default_space"
+        android:background="@drawable/widget_title_bg"
+        android:paddingBottom="@dimen/default_space"
+        android:textColor="?attr/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_below="@id/txtColsTypeTitle"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_marginStart="@dimen/default_space"
+        android:layout_marginEnd="@dimen/default_space"
+        android:paddingTop="@dimen/default_space"
+        android:paddingBottom="@dimen/default_space"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="30"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:hint="@string/hint_column_num"
+                android:id="@+id/edtNumberOfCols"
+                android:imeOptions="actionDone"
+                android:text="@string/default_num_of_cols"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/seekNumberOfCols"
+            android:layout_gravity="bottom"
+            android:layout_width="0dp"
+            android:progress="2"
+            android:layout_weight="70"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

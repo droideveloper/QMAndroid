@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/default_space"
+    android:gravity="center_vertical|end"
+    android:padding="@dimen/small_space"
+    android:background="@null"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnOk"
+        android:text="@android:string/ok"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_marginEnd="@dimen/small_space"
+        android:layout_marginStart="@dimen/small_space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnCancel"
+        android:text="@android:string/cancel"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

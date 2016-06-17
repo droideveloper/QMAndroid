@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    android:id="@+id/rgRows"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/default_space"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@color/colorWidgetBackground"
+    android:layout_gravity="center"
+    android:padding="@dimen/small_space"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbConstraint"
+        android:layout_width="match_parent"
+        android:text="@string/constraint_name"
+        android:checked="true"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbLowerLetter"
+        android:text="@string/lower_case_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbUpperLetter"
+        android:text="@string/upper_case_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbNumber"
+        android:text="@string/number_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/rbMonth"
+        android:layout_width="match_parent"
+        android:text="@string/month_name"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spMonth"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
+</RadioGroup>

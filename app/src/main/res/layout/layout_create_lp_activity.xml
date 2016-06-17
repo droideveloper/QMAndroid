@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/vgAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            xmlns:collapse="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/vgToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            collapse:theme="@style/ThemeOverlay.Light"
+            collapse:collapsedTitleGravity="start"
+            collapse:expandedTitleGravity="bottom|end"
+            collapse:contentScrim="?attr/colorPrimary"
+            collapse:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                toolbar:theme="@style/ThemeOverlay.Light"
+                toolbar:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <fragment
+        xmlns:frag="http://schemas.android.com/apk/res-auto"
+        frag:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/fragCreateLinearProblem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="org.fs.qm.views.CreateLinearProblemFragmentView"
+        tools:layout="@layout/layout_create_lp"/>
+
+</android.support.design.widget.CoordinatorLayout>

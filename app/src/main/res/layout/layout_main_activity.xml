@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/vgDrawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:navigation="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            xmlns:support="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            support:theme="@style/ThemeOverlay.Light"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:id="@+id/vgContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <!-- TODO implement logic and menu.xml for menu items -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nvMenu"
+        android:layout_width="wrap_content"
+        android:background="@color/colorNavigationBackground"
+        android:layout_gravity="start"
+        navigation:headerLayout="@layout/layout_navigation_header"
+        navigation:itemTextColor="@color/navigation_item_tint"
+        navigation:itemIconTint="@color/navigation_item_tint"
+        navigation:itemBackground="@drawable/navigation_item_bg"
+        navigation:menu="@menu/navigation"
+        android:layout_height="match_parent" />
+
+</android.support.v4.widget.DrawerLayout>
