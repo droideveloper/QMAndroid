@@ -3,7 +3,11 @@
     package="org.fs.qm"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+<<<<<<< HEAD
     <!-- application class is set -->
+=======
+<!-- application class is set -->
+>>>>>>> eec5533741c53c95dad743d23ab9693dc9fed059
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,9 +16,15 @@
         android:name=".QMAndroidApplication"
         android:theme="@style/AppTheme">
 
+<<<<<<< HEAD
     <!-- launcher activity set-->
         <activity
             android:name=".views.MainActivityView"
+=======
+<!-- launcher activity set-->
+        <activity
+            android:name=".views.CreateLinearProblemActivityView"
+>>>>>>> eec5533741c53c95dad743d23ab9693dc9fed059
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action
