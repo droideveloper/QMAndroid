@@ -3,7 +3,7 @@
     package="org.fs.qm"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!-- application class is set -->
+    <!-- application class is set -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,9 +12,9 @@
         android:name=".QMAndroidApplication"
         android:theme="@style/AppTheme">
 
-<!-- launcher activity set-->
+    <!-- launcher activity set-->
         <activity
-            android:name=".TestActivity"
+            android:name=".views.MainActivityView"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action
