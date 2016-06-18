@@ -16,6 +16,7 @@ import org.fs.qm.common.SimpleAnimatorListener;
 import org.fs.qm.entities.ICellEntity;
 import org.fs.qm.events.ColumnScrollEvent;
 import org.fs.qm.widget.RecyclerView;
+import org.fs.util.ViewUtility;
 
 import java.util.List;
 
@@ -54,9 +55,9 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     public RowTypeHolder(View view, BusManager busManager) {
         super(view);
         this.busManager = busManager;
-        recyclerView = (RecyclerView) view;
-        recyclerView.addOnScrollListener(scrollListener);
+        recyclerView = ViewUtility.castAsField(view);
         recyclerView.setOnAttachStateListener(this);
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
     @Override protected String getClassTag() {

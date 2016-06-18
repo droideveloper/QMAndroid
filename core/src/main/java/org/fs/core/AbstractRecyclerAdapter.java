@@ -6,6 +6,7 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -39,6 +40,15 @@ public abstract class AbstractRecyclerAdapter<D, V extends RecyclerView.ViewHold
         if(contextRef != null) {
             contextRef.clear();
         }
+    }
+
+    @Override public V onCreateViewHolder(ViewGroup parent, int viewType) {
+        //ignored, overriden in order to provide name as 'parent'
+        return null;
+    }
+
+    @Override public void onBindViewHolder(V viewHolder, int position) {
+        //ignored, overriden in order to provide name as 'viewHolder'
     }
 
     protected void log(final String str) {
@@ -102,7 +112,7 @@ public abstract class AbstractRecyclerAdapter<D, V extends RecyclerView.ViewHold
      * @param index index we need to look for
      * @return D or null
      */
-    protected final D getItemAtIndex(int index) {
+    protected final D getItemAt(int index) {
         int limit = dataSet.size();
         if(index < 0 || index >= limit || limit == 0)
             return null;

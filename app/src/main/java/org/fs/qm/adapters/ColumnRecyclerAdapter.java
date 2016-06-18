@@ -56,21 +56,21 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
     @Override public void onBindViewHolder(BaseTypeHolder holder, int position) {
         if(holder instanceof EmptyTypeHolder) {
             EmptyTypeHolder castedHolder = (EmptyTypeHolder) holder;
-            castedHolder.notifyDataSet((EmptyCell) getItemAtIndex(position));
+            castedHolder.notifyDataSet((EmptyCell) getItemAt(position));
         } else if(holder instanceof BoundTypeHolder) {
             BoundTypeHolder castedHolder = (BoundTypeHolder) holder;
-            castedHolder.notifyDataSet((BoundCell) getItemAtIndex(position));
+            castedHolder.notifyDataSet((BoundCell) getItemAt(position));
         } else if(holder instanceof LabelTypeHolder) {
             LabelTypeHolder castedHolder = (LabelTypeHolder) holder;
-            castedHolder.notifyDataSet((LabelCell) getItemAtIndex(position));
+            castedHolder.notifyDataSet((LabelCell) getItemAt(position));
         } else if(holder instanceof TextTypeHolder) {
             TextTypeHolder castedHolder = (TextTypeHolder) holder;
-            castedHolder.notifyDataSet((TextCell) getItemAtIndex(position));
+            castedHolder.notifyDataSet((TextCell) getItemAt(position));
         }
     }
 
     @Override public int getItemViewType(int position) {
-        ICellEntity entity = getItemAtIndex(position);
+        ICellEntity entity = getItemAt(position);
         if(entity instanceof EmptyCell) {
             return TYPE_EMPTY;
         } else if(entity instanceof BoundCell) {
