@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractRecyclerAdapter;
+import org.fs.exception.AndroidException;
 import org.fs.qm.entities.BoundCell;
 import org.fs.qm.entities.EmptyCell;
 import org.fs.qm.entities.ICellEntity;
@@ -16,6 +17,7 @@ import org.fs.qm.holders.BoundTypeHolder;
 import org.fs.qm.holders.EmptyTypeHolder;
 import org.fs.qm.holders.LabelTypeHolder;
 import org.fs.qm.holders.TextTypeHolder;
+import org.fs.qm.R;
 
 import java.util.List;
 
@@ -37,19 +39,15 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
     @Override public BaseTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater factory = LayoutInflater.from(getContext());
         if(viewType == TYPE_EMPTY) {
-            //todo inflate views
-            return new EmptyTypeHolder(null);
+            return new EmptyTypeHolder(factory.inflate(R.layout.widget_empty_cell, parent, false));
         } else if(viewType == TYPE_BOUND) {
-            //todo inflate views
-            return new BoundTypeHolder(null);
+            return new BoundTypeHolder(factory.inflate(R.layout.widget_bound_cell, parent, false));
         } else if(viewType == TYPE_LABEL) {
-            //todo inflate views
-            return new LabelTypeHolder(null);
+            return new LabelTypeHolder(factory.inflate(R.layout.widget_label_cell, parent, false));
         } else if(viewType == TYPE_TEXT) {
-            //todo inflate views
-            return new TextTypeHolder(null);
+            return new TextTypeHolder(factory.inflate(R.layout.widget_text_cell, parent, false));
         }
-        return null;
+        throw new AndroidException("no such viewType we ve been expecting");
     }
 
     @Override public void onBindViewHolder(BaseTypeHolder holder, int position) {
@@ -79,7 +77,7 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
         } else if(entity instanceof TextCell) {
             return TYPE_TEXT;
         }
-        return 0;
+        throw new AndroidException("we can not recognize type or object is not what we expected");
     }
 
     @Override protected String getClassTag() {

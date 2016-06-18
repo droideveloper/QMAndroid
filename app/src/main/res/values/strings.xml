@@ -37,6 +37,8 @@
     <string name="nv_home_title">Home</string>
     <string name="nv_history_title">History</string>
 
+    <string name="hint_text_cell">0.0</string>
+
     <string-array name="months">
         <item>January</item>
         <item>February</item>

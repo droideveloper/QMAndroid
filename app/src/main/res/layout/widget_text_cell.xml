@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/small_space"
+    android:layout_margin="@dimen/default_space"
+    android:layout_width="wrap_content"
+    android:background="@drawable/widget_bg"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edtText"
+        android:gravity="end"
+        android:hint="@string/hint_text_cell"
+        android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Time"
+        android:inputType="numberDecimal"
+        android:imeOptions="actionDone|actionNext"
+        android:minWidth="@dimen/min_cell_width"
+        android:minHeight="@dimen/min_cell_height"
+        android:layout_margin="@dimen/small_space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

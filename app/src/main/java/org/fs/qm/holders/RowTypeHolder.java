@@ -1,7 +1,6 @@
 package org.fs.qm.holders;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,8 +19,6 @@ import org.fs.qm.widget.RecyclerView;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -32,7 +29,6 @@ import rx.functions.Action1;
 public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>> implements Action1<Object>, RecyclerView.OnAttachStateListener {
 
     private final static long   ANIMATION_TIME    = 300L;
-    private final static String PROPERTY_SCROLL_Y = "scrollY";
     private final static String PROPERTY_SCROLL_X = "scrollX";
 
     private final RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -53,14 +49,14 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     private   RecyclerView          recyclerView;
     private   Subscription          busListener;
     protected List<ICellEntity>     data;
-    @Inject   BusManager            busManager;
+    private   BusManager            busManager;
 
-    public RowTypeHolder(View view) {
+    public RowTypeHolder(View view, BusManager busManager) {
         super(view);
-        //TODO implement data change
-        RecyclerView v = (RecyclerView) view;
-        v.addOnScrollListener(scrollListener);
-        v.setOnAttachStateListener(this);
+        this.busManager = busManager;
+        recyclerView = (RecyclerView) view;
+        recyclerView.addOnScrollListener(scrollListener);
+        recyclerView.setOnAttachStateListener(this);
     }
 
     @Override protected String getClassTag() {
@@ -86,36 +82,32 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
         onBindView(data);
     }
 
-    void scrollBy(int dx, int dy, boolean animated) {
-        unregisterBusManager();
+    void scrollBy(int dx,  boolean animated) {
+        unregisterBus();
         if(animated) {
-            itemView.clearAnimation();
+            recyclerView.clearAnimation();
 
-            AnimatorSet effect = new AnimatorSet();
+            ObjectAnimator effect = ObjectAnimator.ofInt(itemView, PROPERTY_SCROLL_X, itemView.getScrollX(), dx);
             effect.setInterpolator(new CoreInterpolator());
             effect.setDuration(ANIMATION_TIME);
 
-            ObjectAnimator effectX = ObjectAnimator.ofInt(itemView, PROPERTY_SCROLL_X, itemView.getScrollX(), dx);
-            ObjectAnimator effectY = ObjectAnimator.ofInt(itemView, PROPERTY_SCROLL_Y, itemView.getScrollY(), dy);
-
-            effect.playTogether(effectX, effectY);
             effect.addListener(new SimpleAnimatorListener() {
                 @Override public void onAnimationEnd(Animator animation) {
-                    registerBusManager();
+                    registerBus();
                 }
             });
             effect.start();
         } else {
-            itemView.scrollTo(dx, dy);
-            registerBusManager();
+            recyclerView.scrollTo(dx, 0);
+            registerBus();
         }
     }
 
-    void registerBusManager() {
+    void registerBus() {
         busListener = busManager.register(this);
     }
 
-    void unregisterBusManager() {
+    void unregisterBus() {
         if(busListener != null) {
             busManager.unregister(busListener);
             busListener = null;
@@ -125,15 +117,15 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     @Override public void call(Object e) {
         if(e instanceof ColumnScrollEvent) {
             ColumnScrollEvent event = (ColumnScrollEvent) e;
-            scrollBy(event.dx, event.dy, Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN);
+            scrollBy(event.dx, Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN);
         }
     }
 
     @Override public void onAttached(View view) {
-       registerBusManager();
+       registerBus();
     }
 
     @Override public void onDetached(View view) {
-        unregisterBusManager();
+        unregisterBus();
     }
 }

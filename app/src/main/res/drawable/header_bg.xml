@@ -6,8 +6,4 @@
             <solid android:color="@color/colorNavigationHeaderBackground" />
         </shape>
     </item>
-<<<<<<< HEAD
-=======
-    <item android:drawable="@drawable/ic_history_white_24dp" android:gravity="end|top" />
->>>>>>> eec5533741c53c95dad743d23ab9693dc9fed059
 </layer-list>
