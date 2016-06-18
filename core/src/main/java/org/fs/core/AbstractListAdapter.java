@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,10 @@ import java.util.List;
  */
 public abstract class AbstractListAdapter<D, VH extends AbstractViewHolder<D>> extends BaseAdapter {
 
-    protected final List<D>             dataSet;
-    protected final LayoutInflater      inflater;
+    protected final List<D>                 dataSet;
+    protected final WeakReference<Context>  contextRef;
 
-    private final Object                lock = new Object();
+    private final Object lock = new Object();
 
     public AbstractListAdapter(Context context) {
         this(context, new ArrayList<D>());
@@ -33,12 +34,8 @@ public abstract class AbstractListAdapter<D, VH extends AbstractViewHolder<D>> e
 
     public AbstractListAdapter(Context context, @NonNull List<D> dataSet) {
         this.dataSet = dataSet;
-        Resources.Theme theme = context.getTheme();
-        if(theme != null) {
-            this.inflater = LayoutInflater.from(new ContextThemeWrapper(context, theme));
-        } else {
-            this.inflater = LayoutInflater.from(context);
-        }
+        this.contextRef = context != null ?
+                new WeakReference<>(context) : null;
     }
 
     public final void add(D object) {
@@ -137,6 +134,23 @@ public abstract class AbstractListAdapter<D, VH extends AbstractViewHolder<D>> e
     protected abstract boolean  isLogEnabled();
     protected abstract VH       onCreateViewHolder(ViewGroup parent, int viewType);
     protected abstract void     onBindViewHolder(VH viewHolder, int position);
+
+    protected final Context getContext() {
+        return contextRef != null ? contextRef.get() : null;
+    }
+
+    protected final LayoutInflater inflaterFactory() {
+        final Context context = getContext();
+        if(context != null) {
+            Resources.Theme theme = context.getTheme();
+            if(theme != null) {
+                return LayoutInflater.from(new ContextThemeWrapper(context, theme));
+            } else {
+                return LayoutInflater.from(context);
+            }
+        }
+        return null;
+    }
 
     protected void log(String str) {
         log(Log.DEBUG, str);

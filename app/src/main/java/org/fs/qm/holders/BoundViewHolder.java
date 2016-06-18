@@ -8,14 +8,14 @@ import org.fs.core.AbstractViewHolder;
 import org.fs.util.ViewUtility;
 
 /**
- * Created by Fatih on 12/06/16.
- * as org.fs.qm.holders.MonthsAdapter
+ * Created by Fatih on 18/06/16.
+ * as org.fs.qm.holders.BoundViewHolder
  */
-public class MonthViewHolder extends AbstractViewHolder<String> {
+public class BoundViewHolder extends AbstractViewHolder<String> {
 
     private TextView textView;
 
-    public MonthViewHolder(View view) {
+    public BoundViewHolder(View view) {
         super(view);
         textView = ViewUtility.castAsField(view);
     }
@@ -32,7 +32,7 @@ public class MonthViewHolder extends AbstractViewHolder<String> {
     }
 
     @Override protected String getClassTag() {
-        return MonthViewHolder.class.getSimpleName();
+        return BoundViewHolder.class.getSimpleName();
     }
 
     @Override protected boolean isLogEnabled() {

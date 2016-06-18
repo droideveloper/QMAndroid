@@ -1,8 +1,11 @@
 package org.fs.core;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -114,5 +117,22 @@ public abstract class AbstractRecyclerAdapter<D, V extends RecyclerView.ViewHold
         return contextRef != null
                 ? contextRef.get()
                 : null;
+    }
+
+    /**
+     * inflater instance from context, if theme used then it will provides one
+     * @return LayoutInflater instance
+     */
+    protected final LayoutInflater inflaterFactory() {
+        Context context = getContext();
+        if(context != null) {
+            Resources.Theme theme = context.getTheme();
+            if(theme != null) {
+                return LayoutInflater.from(new ContextThemeWrapper(context, theme));
+            } else {
+                return LayoutInflater.from(context);
+            }
+        }
+        return null;
     }
 }

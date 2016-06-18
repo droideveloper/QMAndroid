@@ -14,6 +14,7 @@ import java.util.List;
 public final class BoundCell extends AbstractEntity implements ICellEntity {
 
     private List<String> bounds;
+    private int          selectedIndex;
 
     public static BoundCell newBoundCellEntity(List<String> bounds) {
         return new BoundCell(bounds);
@@ -32,10 +33,28 @@ public final class BoundCell extends AbstractEntity implements ICellEntity {
         if(hasBounds) {
             input.readStringList(bounds);
         }
+        selectedIndex = input.readInt();
     }
 
     public List<String> getBounds() {
         return bounds;
+    }
+
+    public String getBoundAt(int index) {
+        if(bounds != null && !bounds.isEmpty()) {
+            if (index < bounds.size() && index >= 0) {
+                return bounds.get(index);
+            }
+        }
+        return null;
+    }
+
+    public void setSelectedIndex(int selectedIndex) {
+        this.selectedIndex = selectedIndex;
+    }
+
+    public int getSelectedIndex() {
+        return selectedIndex;
     }
 
     @Override protected String getClassTag() {
@@ -56,6 +75,7 @@ public final class BoundCell extends AbstractEntity implements ICellEntity {
         if(hasBounds) {
             output.writeStringList(bounds);
         }
+        output.writeInt(selectedIndex);
     }
 
     public final static Creator<BoundCell> CREATOR = new Creator<BoundCell>() {

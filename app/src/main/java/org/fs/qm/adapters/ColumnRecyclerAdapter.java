@@ -37,17 +37,20 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
     }
 
     @Override public BaseTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final LayoutInflater factory = LayoutInflater.from(getContext());
-        if(viewType == TYPE_EMPTY) {
-            return new EmptyTypeHolder(factory.inflate(R.layout.widget_empty_cell, parent, false));
-        } else if(viewType == TYPE_BOUND) {
-            return new BoundTypeHolder(factory.inflate(R.layout.widget_bound_cell, parent, false));
-        } else if(viewType == TYPE_LABEL) {
-            return new LabelTypeHolder(factory.inflate(R.layout.widget_label_cell, parent, false));
-        } else if(viewType == TYPE_TEXT) {
-            return new TextTypeHolder(factory.inflate(R.layout.widget_text_cell, parent, false));
+        final LayoutInflater factory = inflaterFactory();
+        if(factory != null) {
+            if (viewType == TYPE_EMPTY) {
+                return new EmptyTypeHolder(factory.inflate(R.layout.widget_empty_cell, parent, false));
+            } else if (viewType == TYPE_BOUND) {
+                return new BoundTypeHolder(factory.inflate(R.layout.widget_bound_cell, parent, false));
+            } else if (viewType == TYPE_LABEL) {
+                return new LabelTypeHolder(factory.inflate(R.layout.widget_label_cell, parent, false));
+            } else if (viewType == TYPE_TEXT) {
+                return new TextTypeHolder(factory.inflate(R.layout.widget_text_cell, parent, false));
+            }
+            throw new AndroidException("no such viewType we ve been expecting");
         }
-        throw new AndroidException("no such viewType we ve been expecting");
+        throw new AndroidException("we can not have instance of inflater since our context is death");
     }
 
     @Override public void onBindViewHolder(BaseTypeHolder holder, int position) {

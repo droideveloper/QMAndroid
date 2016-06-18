@@ -1,11 +1,13 @@
 package org.fs.qm.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractListAdapter;
+import org.fs.exception.AndroidException;
 import org.fs.qm.holders.MonthViewHolder;
 
 import java.util.List;
@@ -25,14 +27,18 @@ public class MonthsAdapter extends AbstractListAdapter<String, MonthViewHolder> 
     }
 
     @Override protected MonthViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-        return new MonthViewHolder(view);
+        LayoutInflater factory = inflaterFactory();
+        if(factory != null) {
+            View view = factory.inflate(android.R.layout.simple_list_item_1, parent, false);
+            return new MonthViewHolder(view);
+        }
+        throw new AndroidException("we can not grab instance of factory of LayoutInflater");
     }
 
     @Override protected void onBindViewHolder(MonthViewHolder viewHolder, int position) {
         final String str = getItemAt(position);
         if(str != null) {
-            viewHolder.setData(str);
+            viewHolder.notifyDataSet(str);
         }
     }
 

@@ -30,7 +30,7 @@ public class BaseTypeHolder<T extends ICellEntity> extends AbstractRecyclerViewH
         //we gone use super type
     }
 
-    public void notifyDataSet(T data) {
+    public final void notifyDataSet(T data) {
         this.data = data;
         onBindView(data);
     }
