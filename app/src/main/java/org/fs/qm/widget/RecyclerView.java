@@ -12,17 +12,14 @@ import android.view.View;
 public class RecyclerView extends android.support.v7.widget.RecyclerView {
 
     private final android.support.v7.widget.RecyclerView.OnScrollListener scrollTracker = new android.support.v7.widget.RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(android.support.v7.widget.RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
+        @Override public void onScrollStateChanged(android.support.v7.widget.RecyclerView recyclerView, int newState) {
+            if(scroll != null) {
+                scroll.onScrolled(newState);
+            }
         }
 
-        @Override
-        public void onScrolled(android.support.v7.widget.RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            if(scroll != null) {
-                scroll.onScrolled(dx, dy);
-            }
+        @Override public void onScrolled(android.support.v7.widget.RecyclerView recyclerView, int dx, int dy) {
+            //ignored
         }
     };
 
@@ -66,7 +63,7 @@ public class RecyclerView extends android.support.v7.widget.RecyclerView {
     }
 
     public interface OnScrollListener {
-        void onScrolled(int dx, int dy);
+        void onScrolled(int newState);
     }
 
     public interface OnAttachStateListener {

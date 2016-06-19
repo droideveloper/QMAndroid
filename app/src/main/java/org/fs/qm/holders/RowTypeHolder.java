@@ -3,10 +3,10 @@ package org.fs.qm.holders;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import org.fs.common.BusManager;
-import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractRecyclerViewHolder;
 import org.fs.qm.adapters.ColumnRecyclerAdapter;
 import org.fs.qm.entities.ICellEntity;
@@ -16,6 +16,7 @@ import org.fs.util.ViewUtility;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Locale;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -57,7 +58,7 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     }
 
     @Override protected boolean isLogEnabled() {
-        return AbstractApplication.isDebug();
+        return Boolean.TRUE;
     }
 
     @Override protected void onBindView(List<ICellEntity> data) {
@@ -71,6 +72,7 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
         onBindView(data);
     }
 
+    //TODO find a way to sync those view when scrolled
     void scrollBy(int dx,  boolean animated) {
         //todo scroll to position
 //        unregisterBus();
@@ -91,6 +93,9 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
 //
 //            registerBus();
 //        }
+        unregisterBus();
+        recyclerView.scrollToPosition(dx);
+        registerBus();
     }
 
     void registerBus() {
@@ -108,11 +113,15 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
         if(e instanceof ColumnScrollEvent) {
             ColumnScrollEvent event = (ColumnScrollEvent) e;
             scrollBy(event.dx, true);
+            log(Log.ERROR, String.format(Locale.ENGLISH, "D:/%d - %d", getAdapterPosition(), event.dx));
         }
     }
 
-    @Override public void onScrolled(int dx, int dy) {
-        busManager.post(new ColumnScrollEvent(dx, dy));
+    @Override public void onScrolled(int newState) {
+        if(newState == RecyclerView.SCROLL_STATE_IDLE) {
+            //busManager.post(new ColumnScrollEvent(getAdapterPosition(), newState));
+            log(Log.ERROR, String.format(Locale.ENGLISH, "E:/%d - %d", getAdapterPosition(), newState));
+        }
     }
 
     @Override public void onAttached(View view) {
@@ -126,5 +135,4 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     FragmentManager getFragmentManager() {
         return fragmentRef != null ? fragmentRef.get() : null;
     }
-
 }

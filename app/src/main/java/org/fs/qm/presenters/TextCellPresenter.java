@@ -84,6 +84,8 @@ public class TextCellPresenter extends AbstractPresenter<ITextCellView> implemen
             if(dialog != null) {
                 final Window window = dialog.getWindow();
                 if(window != null) {
+                    //if dialog needs to set full screen with With match parent
+                    //this is the solution
                     window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                                      ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
