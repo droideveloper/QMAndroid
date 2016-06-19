@@ -18,6 +18,7 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout);
 
+        //selected RowCount + 2, selected ColCount + 3 should be passed into defineProblemFragment
         DefineLinearProblemFragmentView frag = DefineLinearProblemFragmentView.newInstance(Objective.MAXIMIZE, 5 + 2, 3 + 3, "Constraint%d", "x%d");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragDefineLinearProblem, frag).commit();
     }
