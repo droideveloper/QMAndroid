@@ -39,6 +39,9 @@
 
     <string name="hint_text_cell">0.0</string>
 
+    <string name="hint_txt_input">Enter coefficient factor</string>
+    <string name="error_txt_input">We set default text, please set your value.</string>
+
     <string name="lbl_rhs">RHS</string>
 
     <string-array name="months">

@@ -1,6 +1,7 @@
 package org.fs.qm.adapters;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -19,6 +20,7 @@ import org.fs.qm.holders.LabelTypeHolder;
 import org.fs.qm.holders.TextTypeHolder;
 import org.fs.qm.R;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -32,8 +34,11 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
     public static final int TYPE_TEXT  = 0x3;
     public static final int TYPE_LABEL = 0x4;
 
-    public ColumnRecyclerAdapter(List<ICellEntity> dataSet, Context context) {
+    private WeakReference<FragmentManager> fragmentManagerRef;
+
+    public ColumnRecyclerAdapter(List<ICellEntity> dataSet, Context context, FragmentManager fragmentManager) {
         super(dataSet, context);
+        fragmentManagerRef = fragmentManager != null ? new WeakReference<>(fragmentManager) : null;
     }
 
     @Override public BaseTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,7 +51,7 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
             } else if (viewType == TYPE_LABEL) {
                 return new LabelTypeHolder(factory.inflate(R.layout.widget_label_cell, parent, false));
             } else if (viewType == TYPE_TEXT) {
-                return new TextTypeHolder(factory.inflate(R.layout.widget_text_cell, parent, false));
+                return new TextTypeHolder(factory.inflate(R.layout.widget_text_cell, parent, false), getFragmentManager());
             }
             throw new AndroidException("no such viewType we ve been expecting");
         }
@@ -89,5 +94,9 @@ public class ColumnRecyclerAdapter extends AbstractRecyclerAdapter<ICellEntity, 
 
     @Override protected boolean isLogEnabled() {
         return AbstractApplication.isDebug();
+    }
+
+    FragmentManager getFragmentManager() {
+        return fragmentManagerRef != null ? fragmentManagerRef.get() : null;
     }
 }

@@ -1,6 +1,7 @@
 package org.fs.qm.views;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import org.fs.common.IView;
@@ -18,5 +19,6 @@ public interface IDefineLinearProblemFragmentView extends IView {
 
     boolean             isAvailable();
     ActivityComponent   getActivityComponent();
+    FragmentManager     provideFragmentManager();
     Context             getContext();
 }

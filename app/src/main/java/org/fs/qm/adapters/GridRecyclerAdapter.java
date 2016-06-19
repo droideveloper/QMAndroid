@@ -1,6 +1,7 @@
 package org.fs.qm.adapters;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import org.fs.qm.R;
 import org.fs.qm.entities.ICellEntity;
 import org.fs.qm.holders.RowTypeHolder;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -22,9 +24,11 @@ import java.util.List;
 public class GridRecyclerAdapter extends AbstractRecyclerAdapter<List<ICellEntity>, RowTypeHolder> {
 
     private BusManager busManager;
+    private WeakReference<FragmentManager> fragmentRef;
 
-    public GridRecyclerAdapter(List<List<ICellEntity>> dataSet, Context context) {
+    public GridRecyclerAdapter(List<List<ICellEntity>> dataSet, Context context, FragmentManager fragmentManager) {
         super(dataSet, context);
+        this.fragmentRef = fragmentManager != null ? new WeakReference<>(fragmentManager) : null;
         this.busManager = new BusManager();//we create bus manager only for those adapter rest is ignored
     }
 
@@ -32,7 +36,7 @@ public class GridRecyclerAdapter extends AbstractRecyclerAdapter<List<ICellEntit
        final LayoutInflater factory = inflaterFactory();
        if(factory != null) {
            View view = factory.inflate(R.layout.layout_row_recycler, parent, false);
-           return new RowTypeHolder(view, busManager);
+           return new RowTypeHolder(view, busManager, getFragmentManager());
        }
        throw new AndroidException("you can not grab inflater since context is death.");
     }
@@ -59,5 +63,9 @@ public class GridRecyclerAdapter extends AbstractRecyclerAdapter<List<ICellEntit
 
     @Override protected boolean isLogEnabled() {
         return AbstractApplication.isDebug();
+    }
+
+    FragmentManager getFragmentManager() {
+        return fragmentRef != null ? fragmentRef.get() : null;
     }
 }

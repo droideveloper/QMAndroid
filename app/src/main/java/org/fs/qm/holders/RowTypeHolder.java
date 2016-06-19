@@ -1,5 +1,6 @@
 package org.fs.qm.holders;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -13,6 +14,7 @@ import org.fs.qm.events.ColumnScrollEvent;
 import org.fs.qm.widget.RecyclerView;
 import org.fs.util.ViewUtility;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import rx.Subscription;
@@ -34,9 +36,11 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     private   Subscription          busListener;
     protected List<ICellEntity>     data;
     private   BusManager            busManager;
+    private WeakReference<FragmentManager> fragmentRef;
 
-    public RowTypeHolder(View view, BusManager busManager) {
+    public RowTypeHolder(View view, BusManager busManager, FragmentManager fragmentManager) {
         super(view);
+        this.fragmentRef = fragmentManager != null ? new WeakReference<>(fragmentManager) : null;
         this.busManager = busManager;
         recyclerView = ViewUtility.castAsField(view);
         recyclerView.setNestedScrollingEnabled(false);
@@ -57,7 +61,7 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     }
 
     @Override protected void onBindView(List<ICellEntity> data) {
-        ColumnRecyclerAdapter columnAdapter = new ColumnRecyclerAdapter(data, itemView.getContext());
+        ColumnRecyclerAdapter columnAdapter = new ColumnRecyclerAdapter(data, itemView.getContext(), getFragmentManager());
         recyclerView.setAdapter(columnAdapter);
     }
 
@@ -117,6 +121,10 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
 
     @Override public void onDetached(View view) {
         unregisterBus();
+    }
+
+    FragmentManager getFragmentManager() {
+        return fragmentRef != null ? fragmentRef.get() : null;
     }
 
 }

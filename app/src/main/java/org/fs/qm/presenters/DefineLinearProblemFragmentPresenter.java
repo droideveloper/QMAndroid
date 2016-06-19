@@ -126,7 +126,7 @@ public class DefineLinearProblemFragmentPresenter extends AbstractPresenter<IDef
 
     @Override public void onStart() {
         if(view.isAvailable() && problem != null) {
-            GridRecyclerAdapter adapter = new GridRecyclerAdapter(problem, view.getContext());
+            GridRecyclerAdapter adapter = new GridRecyclerAdapter(problem, view.getContext(), view.provideFragmentManager());
             view.bindAdapter(adapter);
         }
     }

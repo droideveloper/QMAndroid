@@ -2,6 +2,7 @@ package org.fs.qm.views;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -82,6 +83,10 @@ public class DefineLinearProblemFragmentView extends AbstractFragment<IDefineLin
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override public FragmentManager provideFragmentManager() {
+       return getChildFragmentManager();
     }
 
     @Override public boolean isAvailable() {
