@@ -39,6 +39,8 @@
 
     <string name="hint_text_cell">0.0</string>
 
+    <string name="lbl_rhs">RHS</string>
+
     <string-array name="months">
         <item>January</item>
         <item>February</item>
@@ -54,6 +56,13 @@
         <item>December</item>
     </string-array>
 
+    <string-array name="rhs_signs">
+        <item>&lt;</item>
+        <item>&lt;=</item>
+        <item>=</item>
+        <item>&gt;</item>
+        <item>&gt;=</item>
+    </string-array>
 
     <!-- TODO DELETE THOSE -->
     <string name="title_activity_scrolling">ScrollingActivity</string>

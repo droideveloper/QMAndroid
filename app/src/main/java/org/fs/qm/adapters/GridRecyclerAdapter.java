@@ -23,9 +23,9 @@ public class GridRecyclerAdapter extends AbstractRecyclerAdapter<List<ICellEntit
 
     private BusManager busManager;
 
-    public GridRecyclerAdapter(List<List<ICellEntity>> dataSet, Context context, BusManager busManager) {
+    public GridRecyclerAdapter(List<List<ICellEntity>> dataSet, Context context) {
         super(dataSet, context);
-        this.busManager = busManager;
+        this.busManager = new BusManager();//we create bus manager only for those adapter rest is ignored
     }
 
     @Override public RowTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -38,16 +38,16 @@ public class GridRecyclerAdapter extends AbstractRecyclerAdapter<List<ICellEntit
     }
 
     @Override public void onBindViewHolder(RowTypeHolder viewHolder, int position) {
-        position = position % dataSet.size();
+//        position = position % dataSet.size();
         final List<ICellEntity> columnCells = getItemAt(position);
         if(columnCells != null) {
             viewHolder.notifyDataSet(columnCells);
         }
     }
 
-    @Override public int getItemCount() {
-        return Integer.MAX_VALUE;
-    }
+//    @Override public int getItemCount() {
+//        return Integer.MAX_VALUE;
+//    }
 
     @Override public int getItemViewType(int position) {
         return 0;
