@@ -16,6 +16,7 @@ public interface IDefineLinearProblemFragmentView extends IView {
     View onBindViews(View view);
     void bindAdapter(GridRecyclerAdapter adapter);
 
+    boolean             isAvailable();
     ActivityComponent   getActivityComponent();
     Context             getContext();
 }

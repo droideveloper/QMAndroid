@@ -107,7 +107,7 @@ public abstract class AbstractListAdapter<D, VH extends AbstractViewHolder<D>> e
     }
 
     @Override public long getItemId(int position) {
-        return Long.MAX_VALUE;
+        return 0L;
     }
 
     @Override public int getViewTypeCount() {

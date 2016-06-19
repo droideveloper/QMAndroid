@@ -80,8 +80,12 @@ public class DefineLinearProblemFragmentView extends AbstractFragment<IDefineLin
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override public boolean isAvailable() {
+        return isCallingSafe();
     }
 
     @Override
@@ -90,10 +94,8 @@ public class DefineLinearProblemFragmentView extends AbstractFragment<IDefineLin
         return null;
     }
 
-    @Override
-    protected IDefineLinearProblemFragmentPresenter presenter() {
-        //todo implement
-        return null;
+    @Override protected IDefineLinearProblemFragmentPresenter presenter() {
+        return new DefineLinearProblemFragmentPresenter(this);
     }
 
     @Override protected String getClassTag() {

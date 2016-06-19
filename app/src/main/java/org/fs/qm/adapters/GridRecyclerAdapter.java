@@ -38,10 +38,15 @@ public class GridRecyclerAdapter extends AbstractRecyclerAdapter<List<ICellEntit
     }
 
     @Override public void onBindViewHolder(RowTypeHolder viewHolder, int position) {
+        position = position % dataSet.size();
         final List<ICellEntity> columnCells = getItemAt(position);
         if(columnCells != null) {
             viewHolder.notifyDataSet(columnCells);
         }
+    }
+
+    @Override public int getItemCount() {
+        return Integer.MAX_VALUE;
     }
 
     @Override public int getItemViewType(int position) {
