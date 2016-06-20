@@ -73,6 +73,7 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     }
 
     //TODO find a way to sync those view when scrolled
+    //however this option needs to be carefully handled because we can not sync properly at the moment
     void scrollBy(int dx,  boolean animated) {
         //todo scroll to position
 //        unregisterBus();
@@ -93,9 +94,9 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
 //
 //            registerBus();
 //        }
-        unregisterBus();
-        recyclerView.scrollToPosition(dx);
-        registerBus();
+        //unregisterBus();
+        //recyclerView.scrollToPosition(dx);
+        //registerBus();
     }
 
     void registerBus() {

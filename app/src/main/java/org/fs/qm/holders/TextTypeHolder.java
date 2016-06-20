@@ -49,6 +49,9 @@ public class TextTypeHolder extends BaseTypeHolder<TextCell> implements View.OnC
 
     @Override public void onTextChanged(String nextStr) {
         edtText.setText(nextStr);
+        //changed value of data too that will be used in solving problem
+        double text = Double.parseDouble(nextStr);
+        data.setText(text);
     }
 
     FragmentManager getFragmentManager() {

@@ -36,6 +36,10 @@ public final class TextCell extends AbstractEntity implements ICellEntity {
         return text;
     }
 
+    public void setText(double text) {
+        this.text = text;
+    }
+
     @Override protected String getClassTag() {
         return TextCell.class.getSimpleName();
     }
