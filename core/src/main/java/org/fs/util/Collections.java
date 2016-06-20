@@ -36,6 +36,16 @@ public final class Collections {
     }
 
     /**
+     * checks Collection&alt;T> is null or empty
+     * @param collection collection instance
+     * @param <T> type
+     * @return true if empty or null false else otherwise
+     */
+    public static <T> boolean isNullOrEmpty(Collection<T> collection) {
+        return collection == null || collection.isEmpty();
+    }
+
+    /**
      * filter logic implementation
      * @param <T> Type
      */

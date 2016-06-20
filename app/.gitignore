@@ -7,3 +7,7 @@
 /build
 /captures
 .idea/
+src/main/java/jni
+src/main/java/libs
+src/main/java/obj/local
+src/main/java/org/fs/ndk

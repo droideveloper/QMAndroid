@@ -35,7 +35,7 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
     private final static int INDEX_ROW_LABEL     = 0x0;
     private final static int INDEX_ROW_OBJECTIVE = 0x1;
 
-    private static int INDEX_COLM_START    = 0x0;
+    private static final int INDEX_COLM_START    = 0x0;
     private static int INDEX_COLM_DATA;
     private static int INDEX_COLM_LAST;
 
@@ -65,8 +65,8 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
 
     @Override public void setColCount(int colCount) {
         this.colCount = colCount;
-        INDEX_COLM_DATA = colCount - 2;//critical
-        INDEX_COLM_LAST = colCount - 1;//critical
+        INDEX_COLM_DATA = colCount - 2;//critical //todo this means we are at BOUND_ROW
+        INDEX_COLM_LAST = colCount - 1;//critical //todo this means we are at RHS_ROW
     }
 
     @Override public void setRowName(String strRowName) {
@@ -91,15 +91,17 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
             for (int i = 0; i < rowCount; i++) {
                 List<ICellEntity> col = new ArrayList<>(colCount);
                 for (int j = 0; j < colCount; j++) {
-                    startWithRowHeaders(i, j, col);
+                    createViewLayoutData(i, j, col);
                 }
                 prob.add(col);
             }
         }
     }
 
-    @Override
-    public void executeAsync() {
+    /**
+     * uses observable of rxJava library to work on non-uiThread
+     */
+    @Override public void executeAsync() {
         Observable.just(prob == null)
                   .flatMap(new Func1<Boolean, Observable<Boolean>>() {
                       @Override public Observable<Boolean> call(Boolean aBoolean) {
@@ -111,7 +113,7 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
                   .observeOn(AndroidSchedulers.mainThread())
                   .subscribe(new Action1<Boolean>() {
                       @Override public void call(Boolean aBoolean) {
-                          if (aBoolean && listener != null) {
+                          if (listener != null) {
                               listener.sucess(prob);
                           }
                       }
@@ -124,7 +126,7 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
                   });
     }
 
-    void startWithRowHeaders(int i, int j, List<ICellEntity> dataSet) {
+    void createViewLayoutData(int i, int j, List<ICellEntity> dataSet) {
         if (j == INDEX_COLM_START) {
             if(i == INDEX_ROW_LABEL) {
                 dataSet.add(EmptyCell.newEmptyCellEntity());
