@@ -33,6 +33,21 @@ public final class FnSubject extends AbstractEntity {
         this.cons = cons;
     }
 
+    public boolean hasConstraints() {
+        return !Collections.isNullOrEmpty(cons);
+    }
+
+    public int constraintsSize() {
+        return cons != null ? cons.size() : 0;
+    }
+
+    public Constraint constraintAt(int index) {
+        if(hasConstraints() && index >= 0 && index < constraintsSize()) {
+            return cons.get(index);
+        }
+        return null;
+    }
+
     public Builder newBuilder() {
         return new Builder()
                         .cons(cons);
