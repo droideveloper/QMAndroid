@@ -251,21 +251,38 @@ public class Simplex implements IProblem {
                 if(c != null) {
                     //since we only have 2 variable defined in objective function we use macro
                     double[] coefs = c.variablesCoef();//0, 1
-                    //calculate y
-                    Position yPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_Y], c, INDEX_Y);
-                    Position xPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_X], c, INDEX_X);
-                    //direction -1 or 1 if -1 is below side, 1 is upper side will be considered
-                    zGraph[i] = Line.create(xPos, yPos, c.getBound() == ISolver.Bound.UPPER ? 1 : -1);
+                    //if one of them is straight line then we do like this
+                    if(hasAnyZeroCoef(coefs)) {
+                        Position xPos, yPos;
+                        if(coefs[INDEX_X] == 0d) {
+                            //index_x is zero
+                            xPos = yPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_Y], c, INDEX_Y);
+                        } else {
+                            //index_y is zero
+                            xPos = yPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_X], c, INDEX_X);
+                        }
+                        zGraph[i] = Line.create(xPos, yPos, c.getBound() == ISolver.Bound.UPPER ? 1 : -1);
+                    } else {
+                        //calculate y
+                        Position yPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_Y], c, INDEX_Y);
+                        Position xPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_X], c, INDEX_X);
+                        //direction -1 or 1 if -1 is below side, 1 is upper side will be considered
+                        zGraph[i] = Line.create(xPos, yPos, c.getBound() == ISolver.Bound.UPPER ? 1 : -1);
+                    }
                 }
             }
         }
 
+        boolean hasAnyZeroCoef(double[] coef) {
+            return coef[INDEX_X] == 0d || coef[INDEX_Y] == 0d;
+        }
+
         Position calcPosition(boolean upper, double coef, Constraint target, int index) {
             return upper ?
-                            (index == INDEX_Y ? Position.create(0d, target.getRhs() / coef)
-                                              : Position.create(target.getRhs() / coef, 0d))
-                         :  (index == INDEX_Y ? Position.create(0d, target.getLhs() / coef)
-                                              : Position.create(target.getLhs() / coef, 0d));
+                            (index == INDEX_Y ? Position.create(0d, coef != 0d ? target.getRhs() / coef : 0d)
+                                              : Position.create(coef != 0d ? target.getRhs() / coef : 0d, 0d))
+                         :  (index == INDEX_Y ? Position.create(0d, coef != 0d ? target.getLhs() / coef : 0d)
+                                              : Position.create(coef != 0d ? target.getLhs() / coef : 0d, 0d));
         }
 
         @Override public boolean isGraphAvailable() {

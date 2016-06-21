@@ -19,7 +19,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Fatih on 21/06/16.
@@ -43,6 +42,7 @@ public class SimplexGraphView extends ImageView {
     private float   lineHeight;
 
     private Paint   pLine;
+    private Paint   pConstraint;
     private Paint   pFeasible;
 
     private double  maxY;
@@ -83,8 +83,8 @@ public class SimplexGraphView extends ImageView {
         int min = Math.min(w, h);
 
         //calculate those value
-        this.lineWidth = min - this.widgetPadding -  getPaddingLeft();//padding and widget padding
-        this.lineHeight = min - this.widgetPadding -  getPaddingTop();//padding and widget padding
+        this.lineWidth = min - left();//padding and widget padding
+        this.lineHeight = min - top();//padding and widget padding
 
         setMeasuredDimension(min, min);
     }
@@ -94,7 +94,13 @@ public class SimplexGraphView extends ImageView {
         canvas.drawLines(lineForX(), pLine);
         if(!Collections.isNullOrEmpty(lines)) {
             for (Line l : lines) {
-                canvas.drawLines(lineForLine(l), pLine);
+                float[] items = lineForLine(l);
+                Log.println(Log.ERROR, getClassTag(), "start************");
+                for (float indicy : items) {
+                    Log.println(Log.ERROR, getClassTag(), String.valueOf(indicy));
+                }
+                Log.println(Log.ERROR, getClassTag(), "************end");
+                canvas.drawLines(items, pConstraint);
             }
         }
     }
@@ -119,34 +125,57 @@ public class SimplexGraphView extends ImageView {
                 left(),                    //startX
                 top(),                     //startY
                 right(),                   //endX
-                lineHeight - bottom()      //endY
+                lineHeight                 //endY
         };
     }
 
     float[] lineForX() {
         return new float[] {
                 left(),                   //startX
-                lineHeight - top(),       //startY
-                lineWidth - right(),      //endX
-                lineHeight - bottom()     //endY
+                lineHeight,               //startY
+                lineWidth,                //endX
+                lineHeight                //endY
         };
     }
 
+    //TODO implement intersection and feasible religion finder
     float[] lineForLine(Line line) {
         Position p1 = line.getFirst();
         Position p2 = line.getSecond();
-        log(Log.ERROR,
-            String.format(Locale.getDefault(),
-                          "p1 --> x: %f\ty: %f", p1.getX(), p1.getY()));
-        log(Log.ERROR,
-            String.format(Locale.getDefault(),
-                          "p2 --> x: %f\ty: %f", p2.getX(), p2.getY()));
-        return new float[] {
-                positionX(p1.getX()) - left(),                     //startX
-                lineHeight - bottom() - positionY(p1.getY()),      //startY
-                positionX(p2.getX()) + right(),                    //endX
-                lineHeight + top() - positionY(p2.getY())          //endY
-        };
+//        log(Log.ERROR,
+//            String.format(Locale.getDefault(),
+//                          "p1 --> x: %f\ty: %f", p1.getX(), p1.getY()));
+//        log(Log.ERROR,
+//            String.format(Locale.getDefault(),
+//                          "p2 --> x: %f\ty: %f", p2.getX(), p2.getY()));
+
+        if(line.isFirstEqualsSecond()) {
+            if(p1.getX() == 0d) {
+                //x zero
+                return new float[] {
+                        left(),
+                        lineHeight - positionY(p1.getY()) + top(),
+                        lineWidth,
+                        lineHeight - positionY(p1.getY()) + top(),
+                };
+            } else {
+                //y zero
+                return new float[] {
+                        positionX(p1.getX()) + left(),
+                        top(),
+                        positionX(p1.getX()) + left(),
+                        lineHeight
+                };
+            }
+        } else {
+            //means two different position
+            return new float[] {
+                    positionX(p1.getX()),                                        //startX
+                    lineHeight - positionY(p1.getY()),                           //startY
+                    positionX(p2.getX()) + right(),                              //endX
+                    lineHeight + top() - positionY(p2.getY())                    //endY
+            };
+        }
     }
 
     float left() {
@@ -190,6 +219,7 @@ public class SimplexGraphView extends ImageView {
         this.strokeColor = Color.BLACK;
         this.widgetPadding = PADDING * this.density;
         loadLinePaint();
+        loadConstraintPaint();
     }
 
     void loadLinePaint() {
@@ -198,6 +228,14 @@ public class SimplexGraphView extends ImageView {
         pLine.setStyle(Paint.Style.STROKE);
         pLine.setStrokeWidth(strokeWidth);
         pLine.setStrokeJoin(Paint.Join.ROUND);
+    }
+
+    void loadConstraintPaint() {
+        pConstraint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        pConstraint.setColor(Color.parseColor("#888888"));
+        pConstraint.setStyle(Paint.Style.STROKE);
+        pConstraint.setStrokeWidth(1.25f * density);
+        pConstraint.setStrokeJoin(Paint.Join.ROUND);
     }
 
     protected void log(String msg) {

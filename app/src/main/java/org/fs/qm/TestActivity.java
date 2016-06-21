@@ -51,15 +51,15 @@ public class TestActivity extends AppCompatActivity {
         Variable   con2Var2 = new Variable.Builder().name("x2").index(2).coef(4d).build();
         Constraint con2 = new Constraint.Builder().name("q").index(2).lhs(0d).rhs(600d).bound(ISolver.Bound.UPPER).vars(Arrays.asList(con2Var1, con2Var2)).build();
 
-//        Variable   con3Var1 = new Variable.Builder().name("x1").index(1).coef(2d).build();
-//        Variable   con3Var2 = new Variable.Builder().name("x2").index(2).coef(2d).build();
-//        Constraint con3 = new Constraint.Builder().name("r").index(3).lhs(0d).rhs(300d).bound(ISolver.Bound.UPPER).vars(Arrays.asList(con3Var1, con3Var2)).build();
+        Variable   con3Var1 = new Variable.Builder().name("x1").index(1).coef(1d).build();
+        Variable   con3Var2 = new Variable.Builder().name("x2").index(2).coef(0d).build();
+        Constraint con3 = new Constraint.Builder().name("r").index(3).lhs(50d).rhs(0d).bound(ISolver.Bound.LOWER).vars(Arrays.asList(con3Var1, con3Var2)).build();
 
         //Subject to
             //p = x1 + x2 + x3      <= 100
             //q = 10x1 + 4x2 + 5x3  <= 600
             //r = 2x1 + 2x2 + 6x3   <= 300
-        FnSubject sbj = new FnSubject.Builder().cons(Arrays.asList(con1, con2)).build();
+        FnSubject sbj = new FnSubject.Builder().cons(Arrays.asList(con1, con2, con3)).build();
         IProblem problem = new Simplex(obj, sbj);
         problem.setCallback(new IProblem.Callback() {
             @Override public void sucess(ISolution solution) {

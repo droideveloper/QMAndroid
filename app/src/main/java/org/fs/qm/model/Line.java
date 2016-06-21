@@ -54,6 +54,10 @@ public final class Line extends AbstractEntity {
         return direction;
     }
 
+    public boolean isFirstEqualsSecond() {
+        return first.getX() == second.getX() && first.getY() == second.getY();
+    }
+
     @Override protected String getClassTag() {
         return Line.class.getSimpleName();
     }

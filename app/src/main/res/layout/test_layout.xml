@@ -6,7 +6,9 @@
 
     <org.fs.qm.widget.SimplexGraphView
         android:padding="5dp"
+        android:layout_margin="20dp"
         android:id="@+id/graph"
+        android:background="#FFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
