@@ -89,6 +89,19 @@ public final class Constraint extends AbstractEntity {
         return vars != null ? vars.size() : 0;
     }
 
+    public double[] variablesCoef() {
+        double[] coefs = new double[variablesSize()];
+        for (int i = 0; i < variablesSize(); i++) {
+            Variable var = variableAt(i);
+            if(var != null) {
+                coefs[i] = var.getCoef();
+            } else {
+                coefs[i] = 0.0d;
+            }
+        }
+        return coefs;
+    }
+
     public Variable variableAt(int index) {
         if(index < variablesSize() && index >= 0) {
             return vars.get(index);
