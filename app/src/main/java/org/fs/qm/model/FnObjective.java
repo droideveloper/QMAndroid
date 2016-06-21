@@ -87,7 +87,11 @@ public final class FnObjective extends AbstractEntity {
             Variable var = variableAt(i);
             if(var != null) {
                 str.append(var.toString());
-                str.append("\t");
+                if (i != variablesSize() -1) {
+                    str.append("\t");
+                    str.append(var.getCoef() >= 0 ? '+' : '+');
+                    str.append("\t");
+                }
             }
         }
         return str.toString();

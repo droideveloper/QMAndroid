@@ -49,7 +49,9 @@ public class Simplex implements IProblem {
 
     void loadProblem() {
         PreconditionUtility.checkNotNull(obj, "objective function is null");
+        log(Log.ERROR, obj.toString());
         PreconditionUtility.checkNotNull(sbj, "subject to function is null");
+        log(Log.ERROR, sbj.toString());
         //create problem
         simplexProxy.create();
         //set problem name

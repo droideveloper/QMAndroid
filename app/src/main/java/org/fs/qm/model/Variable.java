@@ -70,7 +70,7 @@ public final class Variable extends AbstractEntity {
 
     @Override public String toString() {
         return String.format(Locale.getDefault(),
-                                "%.2f%s", coef, name);
+                                "%.1f%s", coef, name);
     }
 
     @Override protected void readParcel(Parcel input) {
