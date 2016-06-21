@@ -11,10 +11,10 @@ import org.fs.util.PreconditionUtility;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.Locale;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -28,6 +28,8 @@ public class Simplex implements IProblem {
     private ISolver simplexProxy;
 
     private ISolution solutionProxy;
+
+    private Callback  callback;
 
     private FnObjective obj;
     private FnSubject   sbj;
@@ -43,21 +45,39 @@ public class Simplex implements IProblem {
         this.sbj = sbj;
     }
 
+    @Override public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
     @Override public void solve() {
         loadProblem();
     }
 
     @Override public void solveAsync() {
+        PreconditionUtility.checkNotNull(callback, "you should set callback for async computation");
         Observable.just(Boolean.TRUE)
-                  .flatMap(new Func1<Boolean, Observable<?>>() {
-                      @Override public Observable<?> call(Boolean aBoolean) {
+                  .flatMap(new Func1<Boolean, Observable<Boolean>>() {
+                      @Override public Observable<Boolean> call(Boolean aBoolean) {
                           solve();
-                          return null;
+                          return Observable.just(Boolean.TRUE);
                       }
                   })
                   .subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
-                  .subscribe();
+                  .subscribe(new Action1<Boolean>() {
+                      @Override
+                      public void call(Boolean aBoolean) {
+                          if (callback != null) {
+                              callback.sucess(solutionProxy);
+                          }
+                      }
+                  }, new Action1<Throwable>() {
+                      @Override public void call(Throwable throwable) {
+                          if (callback != null) {
+                              callback.error(throwable);
+                          }
+                      }
+                  });
     }
 
 
@@ -123,19 +143,19 @@ public class Simplex implements IProblem {
             solutionProxy.loadGraph(sbj.getCons());
         }
 
-        for (Constraint c: sbj.getCons()) {
-            double[] coefs = c.variablesCoef();
-
-            log(Log.ERROR, c.getName() + "*****starts*****");
-            double total = 0.0d;
-            for(i = 0; i < coefs.length; i++) {
-                log(Log.ERROR, String.format(Locale.US,
-                                             "%f x %f", coefs[i], solutionProxy.solutionZforVarAt(i)));
-                total+= coefs[i] * solutionProxy.solutionZforVarAt(i);
-            }
-            log(Log.ERROR, c.getName() + String.format(Locale.US, " total: %f", total - c.getRhs()));
-            log(Log.ERROR, c.getName() + "*****ends*****");
-        }
+//        for (Constraint c: sbj.getCons()) {
+//            double[] coefs = c.variablesCoef();
+//
+//            log(Log.ERROR, c.getName() + "*****starts*****");
+//            double total = 0.0d;
+//            for(i = 0; i < coefs.length; i++) {
+//                log(Log.ERROR, String.format(Locale.US,
+//                                             "%f x %f", coefs[i], solutionProxy.solutionZforVarAt(i)));
+//                total+= coefs[i] * solutionProxy.solutionZforVarAt(i);
+//            }
+//            log(Log.ERROR, c.getName() + String.format(Locale.US, " total: %f", total - c.getRhs()));
+//            log(Log.ERROR, c.getName() + "*****ends*****");
+//        }
     }
 
     @Override public ISolution getSolution() {
@@ -270,4 +290,5 @@ public class Simplex implements IProblem {
             return (zGraph != null && index >= 0 && index < zGraph.length) ? zGraph[index] : null;
         }
     }
+
 }

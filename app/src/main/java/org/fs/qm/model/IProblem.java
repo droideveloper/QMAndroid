@@ -8,7 +8,13 @@ public interface IProblem {
 
     void solve();
     void solveAsync();
+    void setCallback(Callback callback);
 
     ISolution getSolution();
 
+    //async needs this object
+    interface Callback {
+        void sucess(ISolution solution);
+        void error(Throwable exp);
+    }
 }
