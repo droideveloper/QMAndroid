@@ -59,6 +59,6 @@ public class TestActivity extends AppCompatActivity {
             //r = 2x1 + 2x2 + 6x3   <= 300
         FnSubject sbj = new FnSubject.Builder().cons(Arrays.asList(con1, con2, con3)).build();
         IProblem problem = new Simplex(obj, sbj);
-        problem.solve();
+        problem.solveAsync();
     }
 }

@@ -13,6 +13,11 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.Locale;
 
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Fatih on 20/06/16.
  * as org.fs.qm.model.Simplex
@@ -43,7 +48,16 @@ public class Simplex implements IProblem {
     }
 
     @Override public void solveAsync() {
-        //todo implement
+        Observable.just(Boolean.TRUE)
+                  .flatMap(new Func1<Boolean, Observable<?>>() {
+                      @Override public Observable<?> call(Boolean aBoolean) {
+                          solve();
+                          return null;
+                      }
+                  })
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe();
     }
 
 

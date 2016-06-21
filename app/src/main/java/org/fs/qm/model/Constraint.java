@@ -4,6 +4,7 @@ import android.os.Parcel;
 
 import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractEntity;
+import org.fs.ndk.ISolver;
 import org.fs.util.Collections;
 import org.fs.util.StringUtility;
 
@@ -133,6 +134,10 @@ public final class Constraint extends AbstractEntity {
                 }
             }
         }
+        str.append("\t\t");
+        str.append(getBound() == ISolver.Bound.UPPER ? "<=" : ">=");
+        str.append("\t\t");
+        str.append(getBound() == ISolver.Bound.UPPER ? getRhs() : getRhs());
         return str.toString();
     }
 
