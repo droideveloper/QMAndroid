@@ -30,9 +30,6 @@ public class DefineLinearProblemFragmentPresenter extends AbstractPresenter<IDef
     public final static String ARGS_ROW_NTEMPLATE   = "linear.problem.row.name.template";
     public final static String ARGS_COL_NTEMPLATE   = "linear.problem.col.name.template";
 
-    //how can I store this problem in state ?
-    private final static String ARGS_PROBLEM        = "linear.problem.data";
-
     private Objective                    objective;
     private int                          rowSize;
     private int                          colSize;
@@ -91,7 +88,7 @@ public class DefineLinearProblemFragmentPresenter extends AbstractPresenter<IDef
     }
 
     @Override public void onBackPressed() {
-        //ignored //todo
+        //ignored //todo fragment not handle this
     }
 
     @Override public void sucess(List<List<ICellEntity>> dataSet) {

@@ -121,7 +121,7 @@ public class RowTypeHolder extends AbstractRecyclerViewHolder<List<ICellEntity>>
     @Override public void onScrolled(int newState) {
         if(newState == RecyclerView.SCROLL_STATE_IDLE) {
             //busManager.post(new ColumnScrollEvent(getAdapterPosition(), newState));
-            log(Log.ERROR, String.format(Locale.ENGLISH, "E:/%d - %d", getAdapterPosition(), newState));
+            //log(Log.ERROR, String.format(Locale.ENGLISH, "E:/%d - %d", getAdapterPosition(), newState));
         }
     }
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/vgAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            xmlns:collapse="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/vgToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            collapse:theme="@style/ThemeOverlay.Light"
+            collapse:collapsedTitleGravity="start"
+            collapse:expandedTitleGravity="bottom|end"
+            collapse:contentScrim="?attr/colorPrimary"
+            collapse:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                toolbar:theme="@style/ThemeOverlay.Light"
+                toolbar:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        xmlns:frag="http://schemas.android.com/apk/res-auto"
+        frag:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/fragDefineLinearProblem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnSolve"
+        app:layout_anchor="@id/vgAppBar"
+        android:src="@drawable/ic_history_white_24dp"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"/>
+
+</android.support.design.widget.CoordinatorLayout>

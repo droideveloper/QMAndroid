@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import org.fs.qm.R;
 import org.fs.qm.entities.TextCell;
-import org.fs.qm.views.TextCellView;
+import org.fs.qm.views.TextDialogFragmentView;
 import org.fs.util.ViewUtility;
 
 import java.lang.ref.WeakReference;
@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference;
  * Created by Fatih on 18/06/16.
  * as org.fs.qm.holders.TextTypeHolder
  */
-public class TextTypeHolder extends BaseTypeHolder<TextCell> implements View.OnClickListener, TextCellView.OnTextViewChangedListener {
+public class TextTypeHolder extends BaseTypeHolder<TextCell> implements View.OnClickListener, TextDialogFragmentView.OnTextViewChangedListener {
 
     private EditText edtText;
     private WeakReference<FragmentManager> fragmentManagerRef;
@@ -39,7 +39,7 @@ public class TextTypeHolder extends BaseTypeHolder<TextCell> implements View.OnC
     }
 
     @Override public void onClick(View v) {
-        TextCellView cellView = new TextCellView();
+        TextDialogFragmentView cellView = new TextDialogFragmentView();
         cellView.setTextChangedListener(this);
         FragmentManager fragmentManager = getFragmentManager();
         if(fragmentManager != null) {

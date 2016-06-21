@@ -10,7 +10,7 @@ import org.fs.common.IView;
  * Created by Fatih on 19/06/16.
  * as org.fs.qm.views.ITextCellView
  */
-public interface ITextCellView extends IView {
+public interface ITextDialogFragmentView extends IView {
 
     View onBindView(View view);
     void close();

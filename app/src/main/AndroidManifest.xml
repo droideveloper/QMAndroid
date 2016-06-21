@@ -13,7 +13,7 @@
 
     <!-- launcher activity set-->
         <activity
-            android:name=".TestActivity">
+            android:name=".views.DefineLinearProblemActivityView">
 
             <intent-filter>
                 <action

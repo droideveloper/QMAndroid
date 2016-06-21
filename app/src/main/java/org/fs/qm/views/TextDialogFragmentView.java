@@ -13,22 +13,22 @@ import android.widget.EditText;
 import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractDialogFragment;
 import org.fs.qm.R;
-import org.fs.qm.presenters.ITextCellPresenter;
-import org.fs.qm.presenters.TextCellPresenter;
+import org.fs.qm.presenters.ITextDialogFragmentPresenter;
+import org.fs.qm.presenters.TextDialogFragmentPresenter;
 import org.fs.util.ViewUtility;
 
 /**
  * Created by Fatih on 19/06/16.
  * as org.fs.qm.views.TextCellView
  */
-public class TextCellView extends AbstractDialogFragment<ITextCellPresenter> implements ITextCellView {
+public class TextDialogFragmentView extends AbstractDialogFragment<ITextDialogFragmentPresenter> implements ITextDialogFragmentView {
 
     TextInputLayout txtInputLayout;
     EditText        txtInput;
     Button          btnOk;
     Button          btnCancel;
 
-    public TextCellView() {
+    public TextDialogFragmentView() {
         //use default theme
         super();//if I do not call this it will mess my code
         setStyle(STYLE_NO_TITLE, getTheme());
@@ -59,15 +59,15 @@ public class TextCellView extends AbstractDialogFragment<ITextCellPresenter> imp
     }
 
     @Override protected String getClassTag() {
-        return TextCellView.class.getSimpleName();
+        return TextDialogFragmentView.class.getSimpleName();
     }
 
     @Override protected boolean isLogEnabled() {
         return AbstractApplication.isDebug();
     }
 
-    @Override protected ITextCellPresenter presenter() {
-        return new TextCellPresenter(this);
+    @Override protected ITextDialogFragmentPresenter presenter() {
+        return new TextDialogFragmentPresenter(this);
     }
 
     @Override public boolean isSelectedPositive(View view) {

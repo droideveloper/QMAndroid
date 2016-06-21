@@ -10,14 +10,14 @@ import android.view.Window;
 import org.fs.common.AbstractPresenter;
 import org.fs.core.AbstractApplication;
 import org.fs.qm.common.SimpleTextWatcher;
-import org.fs.qm.views.ITextCellView;
+import org.fs.qm.views.ITextDialogFragmentView;
 import org.fs.util.StringUtility;
 
 /**
  * Created by Fatih on 19/06/16.
  * as org.fs.qm.presenters.TextCellPresenter
  */
-public class TextCellPresenter extends AbstractPresenter<ITextCellView> implements ITextCellPresenter, View.OnClickListener {
+public class TextDialogFragmentPresenter extends AbstractPresenter<ITextDialogFragmentView> implements ITextDialogFragmentPresenter, View.OnClickListener {
 
 
     private final SimpleTextWatcher textWatcher = new SimpleTextWatcher() {
@@ -37,22 +37,22 @@ public class TextCellPresenter extends AbstractPresenter<ITextCellView> implemen
         }
     };
 
-    private String                                  selectedText;
-    private ITextCellView.OnTextViewChangedListener listener;
+    private String                                            selectedText;
+    private ITextDialogFragmentView.OnTextViewChangedListener listener;
 
-    public TextCellPresenter(ITextCellView view) {
+    public TextDialogFragmentPresenter(ITextDialogFragmentView view) {
         super(view);
     }
 
     @Override protected String getClassTag() {
-        return TextCellPresenter.class.getSimpleName();
+        return TextDialogFragmentPresenter.class.getSimpleName();
     }
 
     @Override protected boolean isLogEnabled() {
         return AbstractApplication.isDebug();
     }
 
-    @Override public void setOnTextChangedListener(ITextCellView.OnTextViewChangedListener listener) {
+    @Override public void setOnTextChangedListener(ITextDialogFragmentView.OnTextViewChangedListener listener) {
         this.listener = listener;
     }
 

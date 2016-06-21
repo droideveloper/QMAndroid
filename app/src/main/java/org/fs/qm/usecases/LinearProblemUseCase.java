@@ -11,6 +11,7 @@ import org.fs.qm.entities.ICellEntity;
 import org.fs.qm.entities.LabelCell;
 import org.fs.qm.entities.Objective;
 import org.fs.qm.entities.TextCell;
+import org.fs.util.Collections;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -86,7 +87,7 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
     }
 
     @Override public void execute() {
-        if(prob == null || prob.isEmpty()) {
+        if(Collections.isNullOrEmpty(prob)) {
             prob = new ArrayList<>(rowCount);
             for (int i = 0; i < rowCount; i++) {
                 List<ICellEntity> col = new ArrayList<>(colCount);
@@ -105,7 +106,10 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
         Observable.just(prob == null)
                   .flatMap(new Func1<Boolean, Observable<Boolean>>() {
                       @Override public Observable<Boolean> call(Boolean aBoolean) {
-                          execute();//just needed to wrap code in non uiThread
+                          if(aBoolean) {
+                              //we use previous if we do not have any other
+                              execute();//just needed to wrap code in non uiThread
+                          }
                           return Observable.just(Boolean.TRUE);
                       }
                   })
@@ -133,7 +137,7 @@ public class LinearProblemUseCase implements ILinearProblemUseCase {
             } else if(i == INDEX_ROW_OBJECTIVE) {
                 dataSet.add(LabelCell.newLabelCellEntity(obj.name()));
             } else {
-                dataSet.add(LabelCell.newLabelCellEntity(parseRowNameAt(i)));
+                dataSet.add(LabelCell.newLabelCellEntity(parseRowNameAt(i - 1)));
             }
         } else if(j < INDEX_COLM_DATA) {
             if(i == INDEX_ROW_LABEL) {
