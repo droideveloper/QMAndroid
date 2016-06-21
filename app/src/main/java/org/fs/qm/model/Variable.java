@@ -6,6 +6,8 @@ import org.fs.core.AbstractApplication;
 import org.fs.core.AbstractEntity;
 import org.fs.util.StringUtility;
 
+import java.util.Locale;
+
 /**
  * Created by Fatih on 20/06/16.
  * as org.fs.qm.model.Variable
@@ -64,6 +66,11 @@ public final class Variable extends AbstractEntity {
 
     public double getRhs() {
         return rhs;
+    }
+
+    @Override public String toString() {
+        return String.format(Locale.getDefault(),
+                                "%.2f%s", coef, name);
     }
 
     @Override protected void readParcel(Parcel input) {

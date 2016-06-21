@@ -53,6 +53,20 @@ public final class FnSubject extends AbstractEntity {
                         .cons(cons);
     }
 
+    @Override public String toString() {
+        StringBuilder str = new StringBuilder(128);
+        str.append("Subject to:\n");
+        for (int i = 0; i < constraintsSize(); i++) {
+            Constraint c = constraintAt(i);
+            if(c != null) {
+                str.append("\t\t");
+                str.append(c.toString());
+                str.append("\n");
+            }
+        }
+        return str.toString();
+    }
+
     @Override protected void readParcel(Parcel input) {
         boolean hasCons = input.readInt() == 1;
         if (hasCons) {

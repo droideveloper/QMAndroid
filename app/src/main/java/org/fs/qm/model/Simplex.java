@@ -10,6 +10,7 @@ import org.fs.util.PreconditionUtility;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -99,17 +100,16 @@ public class Simplex implements IProblem {
         simplexProxy.loadMatrix(n, ia, ja, ar);
         solutionProxy = new SimplexSolution(obj.variablesSize());
         solutionProxy.loadSolution(simplexProxy);
-        log(Log.ERROR, String.format(Locale.getDefault(), "Z: %f, x1: %f, x2: %f, x3: %f",
-                                     solutionProxy.solutionZ(),
-                                     solutionProxy.solutionZforVarAt(0),
-                                     solutionProxy.solutionZforVarAt(1),
-                                     solutionProxy.solutionZforVarAt(2)));
+        //calc constraints value
+        solutionProxy.loadConstraints(sbj.getCons());
+        //if suitable for graph, make calc
+        if(solutionProxy.isGraphAvailable()) {
+            solutionProxy.loadGraph(sbj.getCons());
+        }
 
         for (Constraint c: sbj.getCons()) {
             double[] coefs = c.variablesCoef();
-//            double sum = coefs[0] * solutionProxy.solutionZforVarAt(0)
-//                    + coefs[1] * solutionProxy.solutionZforVarAt(1)
-//                    + coefs[2] + solutionProxy.solutionZforVarAt(2);
+
             log(Log.ERROR, c.getName() + "*****starts*****");
             double total = 0.0d;
             for(i = 0; i < coefs.length; i++) {
@@ -151,9 +151,18 @@ public class Simplex implements IProblem {
         return Simplex.class.getSimpleName();
     }
 
+    /**
+     * Simplex inner solution implementation so far we added
+     *  -> Status
+     *  -> Variable and Objective results
+     *  -> if possible graph coordinates
+     *  -> Constraint sums
+     */
     private class SimplexSolution implements ISolution {
 
         private static final int GRAPH_CONSTANT = 0x02;
+        private static final int INDEX_X        = 0x00;
+        private static final int INDEX_Y        = 0x01;
 
         //gone hold only these values
         @IntRange(from = ISolver.Solution.UNDEFINED, to = ISolver.Solution.UNBOUNDED)
@@ -162,6 +171,8 @@ public class Simplex implements IProblem {
 
         private double      z;
         private double[]    zVars;
+        private double[]    cSum;//constraint sums
+        private Line[]      zGraph;
 
         public SimplexSolution(int size) {
             this.size = size;
@@ -178,6 +189,47 @@ public class Simplex implements IProblem {
             solver.delete();
         }
 
+        //do not call before load solution
+        //loads each constraint value calculation depending on solution we obtained
+        @Override public void loadConstraints(List<Constraint> cons) {
+            cSum = new double[cons.size()];
+            for (int i = 0; i < cons.size(); i++) {
+                Constraint c = cons.get(i);
+                if(c != null) {
+                    double[] coefs = c.variablesCoef();
+                    double sum = 0.0;
+                    for (int j = 0; j < coefs.length; j++) {
+                        sum+= (coefs[j] * zVars[j]);
+                    }
+                    cSum[i] = sum;
+                }
+            }
+        }
+
+        @Override public void loadGraph(List<Constraint> cons) {
+            zGraph = new Line[cons.size()];
+            for (int i = 0; i < cons.size();i++) {
+                Constraint c = cons.get(i);
+                if(c != null) {
+                    //since we only have 2 variable defined in objective function we use macro
+                    double[] coefs = c.variablesCoef();//0, 1
+                    //calculate y
+                    Position yPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_Y], c, INDEX_Y);
+                    Position xPos = calcPosition(c.getBound() == ISolver.Bound.UPPER, coefs[INDEX_X], c, INDEX_X);
+                    //direction -1 or 1 if -1 is below side, 1 is upper side will be considered
+                    zGraph[i] = Line.create(xPos, yPos, c.getBound() == ISolver.Bound.UPPER ? 1 : -1);
+                }
+            }
+        }
+
+        Position calcPosition(boolean upper, double coef, Constraint target, int index) {
+            return upper ?
+                            (index == INDEX_Y ? Position.create(0d, target.getRhs() / coef)
+                                              : Position.create(target.getRhs() / coef, 0d))
+                         :  (index == INDEX_Y ? Position.create(0d, target.getLhs() / coef)
+                                              : Position.create(target.getLhs() / coef, 0d));
+        }
+
         @Override public boolean isGraphAvailable() {
             return size == GRAPH_CONSTANT;
         }
@@ -191,10 +243,15 @@ public class Simplex implements IProblem {
         }
 
         @Override public double solutionZforVarAt(int index) {
-            if(zVars != null && index >= 0 && index < size) {
-                return zVars[index];
-            }
-            return -1d;
+            return (zVars != null && index >= 0 && index < size) ? zVars[index] : -1d;
+        }
+
+        @Override public double solutionZforConAt(int index) {
+            return (cSum != null && index >= 0 && index < cSum.length) ? cSum[index] : -1d;
+        }
+
+        @Override public Line solutionLineAt(int index) {
+            return (zGraph != null && index >= 0 && index < zGraph.length) ? zGraph[index] : null;
         }
     }
 }

@@ -77,6 +77,22 @@ public final class FnObjective extends AbstractEntity {
                     .vars(vars);
     }
 
+    @Override public String toString() {
+        StringBuilder str = new StringBuilder(128);
+        str.append(type.name());
+        str.append("\n");
+        str.append("\t\tz");
+        str.append("\t=\t");
+        for (int i = 0; i < variablesSize(); i++) {
+            Variable var = variableAt(i);
+            if(var != null) {
+                str.append(var.toString());
+                str.append("\t");
+            }
+        }
+        return str.toString();
+    }
+
     @Override protected void readParcel(Parcel input) {
         boolean hasName = input.readInt() == 1;
         if (hasName) {

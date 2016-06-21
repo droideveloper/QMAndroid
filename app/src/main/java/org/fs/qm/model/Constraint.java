@@ -118,6 +118,20 @@ public final class Constraint extends AbstractEntity {
         return this;
     }
 
+    @Override public String toString() {
+        StringBuilder str = new StringBuilder(128);
+        str.append(name);
+        str.append("\t=\t");
+        for (int i = 0; i < variablesSize(); i++) {
+            Variable var = variableAt(i);
+            if(var != null) {
+                str.append(var.toString());
+                str.append("\t");
+            }
+        }
+        return str.toString();
+    }
+
     @Override protected void readParcel(Parcel input) {
         boolean hasName = input.readInt() == 1;
         if (hasName) {
