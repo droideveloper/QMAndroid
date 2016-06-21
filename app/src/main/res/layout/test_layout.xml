@@ -4,10 +4,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fragDefineLinearProblem"
+    <org.fs.qm.widget.SimplexGraphView
+        android:padding="5dp"
+        android:id="@+id/graph"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

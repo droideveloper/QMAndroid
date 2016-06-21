@@ -3,6 +3,7 @@ package org.fs.qm.model;
 import android.support.annotation.IntRange;
 import android.util.Log;
 
+import org.fs.core.AbstractApplication;
 import org.fs.ndk.ISolver;
 import org.fs.ndk.SolverFactory;
 import org.fs.qm.entities.Objective;
@@ -10,6 +11,7 @@ import org.fs.util.PreconditionUtility;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import rx.Observable;
@@ -83,9 +85,9 @@ public class Simplex implements IProblem {
 
     void loadProblem() {
         PreconditionUtility.checkNotNull(obj, "objective function is null");
-        log(Log.ERROR, obj.toString());
+//        log(Log.ERROR, obj.toString());
         PreconditionUtility.checkNotNull(sbj, "subject to function is null");
-        log(Log.ERROR, sbj.toString());
+//        log(Log.ERROR, sbj.toString());
         //create problem
         simplexProxy.create();
         //set problem name
@@ -180,7 +182,7 @@ public class Simplex implements IProblem {
     }
 
     protected boolean isLogEnabled() {
-        return true;
+        return AbstractApplication.isDebug();
     }
 
     protected String getClassTag() {
@@ -276,6 +278,10 @@ public class Simplex implements IProblem {
 
         @Override public double solutionZ() {
             return z;
+        }
+
+        @Override public List<Line> solutionLines() {
+            return Arrays.asList(zGraph);
         }
 
         @Override public double solutionZforVarAt(int index) {

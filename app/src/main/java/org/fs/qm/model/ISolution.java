@@ -19,10 +19,11 @@ public interface ISolution {
     double  solutionZ();
 
     //might return -1 if index out of bound
-    double  solutionZforVarAt(int index);
+    double      solutionZforVarAt(int index);
     //might return -1 if index out of bound
-    double  solutionZforConAt(int index);
+    double      solutionZforConAt(int index);
     //might return null if index out of bound
-    Line    solutionLineAt(int index);
+    Line        solutionLineAt(int index);
+    List<Line>  solutionLines();
 
 }
