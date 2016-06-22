@@ -7,7 +7,7 @@
     android:background="@drawable/widget_bg"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.design.widget.TextInputEditText
         android:id="@+id/edtText"
         android:gravity="end"
         android:hint="@string/hint_text_cell"

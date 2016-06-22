@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import org.fs.common.AbstractPresenter;
 import org.fs.core.AbstractApplication;
@@ -88,6 +89,7 @@ public class TextDialogFragmentPresenter extends AbstractPresenter<ITextDialogFr
                     //this is the solution
                     window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                                      ViewGroup.LayoutParams.WRAP_CONTENT);
+                    window.getAttributes().flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
                 }
             }
         }
