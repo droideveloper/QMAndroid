@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -17,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             collapse:theme="@style/ThemeOverlay.Light"
-            collapse:collapsedTitleGravity="start"
-            collapse:expandedTitleGravity="bottom|end"
+            collapse:titleEnabled="false"
             collapse:contentScrim="?attr/colorPrimary"
             collapse:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -29,6 +27,21 @@
                 android:layout_height="?attr/actionBarSize"
                 toolbar:theme="@style/ThemeOverlay.Light"
                 toolbar:layout_collapseMode="pin"/>
+
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_margin="@dimen/large_space"
+                android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Time"
+                android:textColor="@android:color/white"
+                android:text="@string/large_text"
+                android:maxLines="6"
+                collapse:layout_collapseMode="parallax"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -42,12 +55,14 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btnSolve"
-        app:layout_anchor="@id/vgAppBar"
+        fab:layout_anchor="@id/vgAppBar"
         android:src="@drawable/ic_history_white_24dp"
-        app:layout_anchorGravity="bottom|end"
+        fab:layout_anchorGravity="bottom|start"
         android:layout_width="wrap_content"
         android:layout_margin="16dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
 
 </android.support.design.widget.CoordinatorLayout>

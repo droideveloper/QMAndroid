@@ -16,12 +16,16 @@ public interface IDefineLinearProblemActivityView extends IView {
 
     void startActivity(Intent intent);
     void finish();
-    void setLinearProblemName(String nameStr);
+    void setContentTitle(String nameStr);
+    void setExpandedTitle(String lpStr);
+
     void onBindView();
     void onBackPressed();
 
     void commit(Fragment frag);
 
+    float                density();
+    int                  toolBarHeight();
     boolean              doesNeedNewCommit();
     ApplicationComponent getApplicationComponent();
     ActivityComponent    getActivityComponent();

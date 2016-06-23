@@ -135,9 +135,9 @@ public final class Constraint extends AbstractEntity {
             }
         }
         str.append("\t\t");
-        str.append(getBound() == ISolver.Bound.UPPER ? "<=" : ">=");
+        str.append(getBound() == ISolver.Bound.UPPER ? "<=" : getBound() == ISolver.Bound.LOWER ? ">=" : "=");
         str.append("\t\t");
-        str.append(getBound() == ISolver.Bound.UPPER ? getRhs() : getRhs());
+        str.append(getBound() == ISolver.Bound.UPPER ? getRhs() : getLhs());
         return str.toString();
     }
 

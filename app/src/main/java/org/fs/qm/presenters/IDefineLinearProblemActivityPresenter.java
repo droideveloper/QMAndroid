@@ -1,6 +1,7 @@
 package org.fs.qm.presenters;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -16,6 +17,7 @@ public interface IDefineLinearProblemActivityPresenter extends IPresenter {
     void storeState(Bundle output);
     void onBackPressed();
 
-    Toolbar.OnClickListener navigationListener();
-    View.OnClickListener    clickListener();
+    AppBarLayout.OnOffsetChangedListener    offsetChangeListener();
+    Toolbar.OnClickListener                 navigationListener();
+    View.OnClickListener                    clickListener();
 }

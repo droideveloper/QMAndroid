@@ -14,11 +14,4 @@
 
     <dimen name="min_cell_width">108dp</dimen>
     <dimen name="min_cell_height">32dp</dimen>
-
-
-
-    <dimen name="edit_text_inset_horizontal_material">4dp</dimen>
-    <dimen name="edit_text_inset_top_material">10dp</dimen>
-    <dimen name="edit_text_inset_bottom_material">7dp</dimen>
-
 </resources>

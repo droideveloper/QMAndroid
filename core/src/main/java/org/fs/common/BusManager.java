@@ -15,6 +15,9 @@ import rx.subjects.Subject;
  */
 public final class BusManager {
 
+    //changing this into static instance why ? because I don't want it to go through dagger2 with this just crazy
+    private final static BusManager IMPL = new BusManager();
+
     /**
      * New implementation of event-bus, otto would be lovely but as you see we gotta do this in a way
      */
@@ -45,5 +48,31 @@ public final class BusManager {
 
     public boolean hasObservers() {
         return rxBus.hasObservers();
+    }
+
+
+    /**
+     * <p>Send event to registered objects or it's death</p>
+     * @param event event object to send which should implement {@link org.fs.common.IEvent}
+     */
+    public static void send(Object event) {
+        IMPL.post(event);
+    }
+
+    /**
+     * <p>Register operation that object implements type {@link rx.functions.Action1}</p>
+     * @param clazz implementation of {@link rx.functions.Action1}
+     * @return instance of {@link rx.Subscription}
+     */
+    public static Subscription add(Action1<Object> clazz) {
+        return IMPL.register(clazz);
+    }
+
+    /**
+     * <p>Unregister operation that object implements type {@link rx.functions.Action1} </p>
+     * @param clazz previous instance of registration {@link rx.Subscription}
+     */
+    public static void remove(Subscription clazz) {
+        IMPL.unregister(clazz);
     }
 }

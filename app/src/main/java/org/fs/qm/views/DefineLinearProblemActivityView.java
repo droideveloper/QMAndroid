@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import org.fs.core.AbstractActivity;
 import org.fs.core.AbstractApplication;
@@ -27,14 +29,17 @@ import org.fs.util.ViewUtility;
  */
 public class DefineLinearProblemActivityView extends AbstractActivity<IDefineLinearProblemActivityPresenter> implements IDefineLinearProblemActivityView {
 
-    private CollapsingToolbarLayout toolbarLayout;
+    private final static int MAX_TEXT_LINE = 7;
+
+    private TextView  titleView;
+    private Toolbar   toolbar;
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_define_lp_activity);
 
         savedInstanceState = new Bundle();
-        savedInstanceState.putString("linear.problem.title", "[Untitled]");
+        savedInstanceState.putString("linear.problem.title", getString(R.string.large_text));
         savedInstanceState.putString("linear.problem.objective", Objective.MAXIMIZE.name());
         savedInstanceState.putInt("linear.problem.row.count", 5 + 2);
         savedInstanceState.putInt("linear.problem.col.count", 3 + 3);
@@ -60,18 +65,42 @@ public class DefineLinearProblemActivityView extends AbstractActivity<IDefineLin
         super.onDestroy();
     }
 
-    @Override public void setLinearProblemName(String nameStr) {
-        toolbarLayout.setTitle(nameStr);
+    @Override public void setContentTitle(String nameStr) {
+        //todo changing max line not invalidate...
+        titleView.setMaxLines(1);//clears what is needed
+        titleView.setText(nameStr);
+    }
+
+    @Override public int toolBarHeight() {
+        return toolbar.getHeight();
+    }
+
+    @Override public float density() {
+        return getResources().getDisplayMetrics().density;
+    }
+
+    @Override public void setExpandedTitle(String lpStr) {
+        //todo changing max line not invalidate
+        titleView.setMaxLines(MAX_TEXT_LINE);
+        titleView.setText(lpStr);
     }
 
     @Override public void onBindView() {
-        Toolbar toolbar = ViewUtility.findViewById(this, R.id.toolbar);
+        toolbar = ViewUtility.findViewById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(presenter.navigationListener());
         FloatingActionButton btnSolve = ViewUtility.findViewById(this, R.id.btnSolve);
-        toolbarLayout = ViewUtility.findViewById(this, R.id.vgToolBar);
         btnSolve.setOnClickListener(presenter.clickListener());
+        AppBarLayout appBarLayout = ViewUtility.findViewById(this, R.id.vgAppBar);
+        appBarLayout.addOnOffsetChangedListener(presenter.offsetChangeListener());
+
+        titleView = ViewUtility.findViewById(this, R.id.txtTitle);
+
+        ActionBar supportActionBar = getSupportActionBar();
+        if(supportActionBar != null) {
+            supportActionBar.setDisplayShowTitleEnabled(false);
+        }
     }
 
     @Override public void commit(Fragment frag) {

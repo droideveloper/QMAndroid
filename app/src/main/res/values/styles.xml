@@ -18,7 +18,7 @@
     </style>
 
     <!-- toolbarTitleStyle -->
-    <style name="ThemeOverlay.Light"  parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="ThemeOverlay.Light" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorPrimaryInverse">@android:color/white</item>
     </style>
@@ -35,7 +35,7 @@
         <item name="android:layout_margin">@dimen/default_space</item>
         <item name="android:padding">@dimen/small_space</item>
         <item name="android:textColor">?attr/colorAccent</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Title</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Title
+        </item>
     </style>
-
 </resources>

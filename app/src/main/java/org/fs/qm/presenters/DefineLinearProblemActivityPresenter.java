@@ -1,11 +1,11 @@
 package org.fs.qm.presenters;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.fs.common.AbstractPresenter;
-import org.fs.core.AbstractApplication;
 import org.fs.qm.entities.Objective;
 import org.fs.qm.views.DefineLinearProblemFragmentView;
 import org.fs.qm.views.IDefineLinearProblemActivityView;
@@ -14,7 +14,8 @@ import org.fs.qm.views.IDefineLinearProblemActivityView;
  * Created by Fatih on 22/06/16.
  * as org.fs.qm.presenters.DefineLinearProblemActivityPresenter
  */
-public class DefineLinearProblemActivityPresenter extends AbstractPresenter<IDefineLinearProblemActivityView> implements IDefineLinearProblemActivityPresenter {
+public class DefineLinearProblemActivityPresenter extends AbstractPresenter<IDefineLinearProblemActivityView> implements IDefineLinearProblemActivityPresenter,
+                                                                                                                         AppBarLayout.OnOffsetChangedListener {
 
     private Objective  objective;
     private int        rowSize;
@@ -22,6 +23,10 @@ public class DefineLinearProblemActivityPresenter extends AbstractPresenter<IDef
     private String     rowName;
     private String     colName;
     private String     title;
+
+    private float      density;
+    private int        toolbarHeight;
+    private int        layoutHeight     = 180;
 
     public DefineLinearProblemActivityPresenter(IDefineLinearProblemActivityView view) {
         super(view);
@@ -70,9 +75,23 @@ public class DefineLinearProblemActivityPresenter extends AbstractPresenter<IDef
         };
     }
 
+    @Override public AppBarLayout.OnOffsetChangedListener offsetChangeListener() {
+        return this;
+    }
+
+    @Override public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        final int collapsedOffset = -Math.round(density * layoutHeight) + (toolbarHeight = toolbarHeight != 0 ? toolbarHeight : view.toolBarHeight());
+        if(verticalOffset == collapsedOffset) {
+            view.setContentTitle(title);
+        } else {
+            //todo change this to problem string
+            view.setExpandedTitle(title);
+        }
+    }
+
     @Override public void onCreate() {
         view.onBindView();
-        view.setLinearProblemName(title);
+        density = view.density();
     }
 
     @Override public void onStart() {
@@ -95,6 +114,6 @@ public class DefineLinearProblemActivityPresenter extends AbstractPresenter<IDef
     }
 
     @Override protected boolean isLogEnabled() {
-        return AbstractApplication.isDebug();
+        return Boolean.TRUE;
     }
 }
